@@ -29,5 +29,5 @@ Email: njucsresource@yandex.com
 ## 课程目录
 根据拼音字母排序, 可以通过在此页面搜索课程名快速检索。
 
-* [数据结构][./data_stucture/index.html]
+* [数据结构](./data_structure)
 
