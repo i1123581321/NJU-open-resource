@@ -29,5 +29,13 @@ Email: njucsresource@yandex.com
 ## 课程目录
 根据拼音字母排序, 可以通过在此页面搜索课程名快速检索。
 
+* [计算方法](./numerical_method)
+
 * [数据结构](./data_structure)
 
+## 贡献者
+
+按字典序排序
+
+* [i1123581321](https://www.github.com/i1123581321)
+* [ReversalS](https://www.github.com/ReversalS)
