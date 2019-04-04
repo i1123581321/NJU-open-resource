@@ -1,4 +1,4 @@
-# $链路层$
+# 链路层​
 
 ## Link Service and Framing
 
@@ -444,6 +444,172 @@ LLC 基于 HDLC 的服务：
 仍然使用 IEEE 802.3 的 MAC 协议和帧格式
 
 **星型拓扑**
+
+## Network Performance
+
+### Delay
+
+#### Source of delay
+
+* Transmission
+  * 带宽为 $R$
+  * 分组长度为 $L$
+  * Transmission Delay = $\dfrac{L}{R}$
+* Propagation
+  * 物理链路长度为 $d$
+  * 传播速度为 $s$
+  * Propagation Delay = $\dfrac{d}{s}$
+* Nodal Processing
+  * 检查比特错
+  * 决定出链路
+* **Queuing**
+  * 在出链路等待传输的时间
+  * 取决于路由器的拥塞程度
+
+#### Queuing Delay
+
+* 带宽为 $R$
+* 分组长度为 $L$
+* 分组平均到达速率为 $\alpha$
+* **Traffic intensity** $\rho = \dfrac{L \times \alpha}{R}$
+
+$\rho \rightarrow 1$ 时 Queuing Delay $\rightarrow \infin$
+
+### Packet loss and Throughput
+
+#### Packet loss
+
+当路由链路的 buffer 满时便会导致新到的分组丢包
+
+#### Throughput
+
+发送方与接收方之间的数据传输速率
+
+常常被链路中的瓶颈链路所**限制**
+
+### Network Performance
+
+Media Utilization
+$$
+U = \frac{\text{Time for frame transmission}}{\text{total time for a frame}}
+$$
+Relative Propagation Time
+$$
+\alpha = \frac{\text{propagation time}}{\text{transmission time}}
+$$
+
+#### Point-to-Point Link with no ACK
+
+* frame transmission time: 1
+* end to end propagation time: $\alpha$
+* number of stations: $N​$
+
+Max Utilization
+$$
+U = \frac{1}{1+\alpha}
+$$
+
+#### Ring LAN
+
+* Average time to transmit a frame: $T_1$
+* Average time to pass the token after transmission: $T_2$
+* number of stations: $N$
+
+Max Utilization
+$$
+U = \frac{T_1}{T_1+T_2} = 
+\begin{cases}
+\dfrac{1}{1+\frac{\alpha}{N}}, \quad (\alpha < 1, \text{frame is longer than ring}) \\
+\dfrac{1}{\alpha + \frac{\alpha}{N}}, \quad (\alpha > 1, \text{frame is shorter than ring})
+\end{cases}
+$$
+
+#### Slotted ALOHA
+
+假设有 $N$ 个结点，每个传输的概率为 $p$
+
+* 一个结点成功传输的概率：$p(1-p)^{N-1}​$
+* 任意一结点成功传输的概率：$A = Np(1-p)^{N-1}$
+
+$p = \dfrac{1}{N}$ 时 $A$ 取得最大值 $\left(1-\dfrac{1}{N}\right)^{N-1}$
+
+对于一个成功发送的 slot，Utilization 为
+$$
+U_S = \frac{1}{1+2\alpha} \approx 1 \quad (\alpha \ll 1)
+$$
+发送前使用 $\alpha$ 的时间检测碰撞，发送后以 $\alpha$ 的时间确认 ACK
+
+Max Utilization
+$$
+\begin{align}
+& U = U_S \times A \approx \left(1 - \dfrac{1}{N}\right)^{N-1}\\
+& \text{Let } N \rightarrow \infin \\
+& U \approx e^{-1} = 0.367879
+\end{align}
+$$
+
+#### Pure ALOHA
+
+成功概率
+$$
+\begin{align}
+A = N &\times P \{\text{one transmit in the slot}\} \\
+&\times P\{\text{no other node transmit in }[t_{0-1}, t_0] \} \\
+&\times P\{\text{no other node transmit in }[t_0, t_{0+1}] \} 
+\end{align}
+$$
+Max Utilization
+$$
+\begin{align}
+U &\approx A = Np(1-p)^{2N - 1} \\ 
+&\approx \dfrac{1}{2}\left(1 - \dfrac{1}{2N} \right)^{2N - 1} \quad (p = \dfrac{1}{2N}) \\
+&\approx \dfrac{1}{2e} = 0.183940 \quad (N \rightarrow \infin)
+\end{align}
+$$
+
+#### CSMA\CD
+
+* banwidth: $B$
+* length of link: $L$
+* Propagation speed: $V$
+* frame size: $Size$
+* Propagation time: $T_a = \dfrac{L}{V}​$
+* Transmission time: $T_b = \dfrac{Size}{B}$
+
+最差情况下需要 $2T_a​$ 的时间才能检测到碰撞，（Minimum contention interval）
+
+Minimum frame size
+$$
+T_b \geqslant 2T_a\\
+Size \geqslant \dfrac{2 \times L \times B}{V}
+$$
+对于 p-persistent CSMA/CD（传输概率为 $p$）
+
+成功传输概率
+$$
+A = Np(1-p)^{N-1}\\
+p = \dfrac{1}{N}, A = \left(1 - \dfrac{1}{N} \right)^{N - 1} 
+$$
+则间隔 $j$ 个 slot 的概率为
+$$
+P\{j \text{ unsuccessful attempts} \} \times P\{\text{1 successful attempt}\} = A(1-A)^j
+$$
+延迟 slot 的期望为
+$$
+\sum^{\infin}_{j = 1} jA(1-A)^j = \frac{1-A}{A}
+$$
+Max Utilization
+$$
+\begin{align}
+U &= \frac{\text{frame time}}{\text{frame time + propagation time + average contention interval}} \\
+&=\frac{1}{1 + \alpha + 2\alpha \times \dfrac{1- A}{A}}\\
+&= \frac{1}{1 + \dfrac{2 - A}{A} \alpha}
+\end{align}
+$$
+Let $N \rightarrow \infin, A = \dfrac{1}{e}$
+$$
+U = \frac{1}{1 + (2e - 1)\alpha} \approx \frac{1}{1 + 4.44\alpha}
+$$
 
 [Duplex]: https://en.wikipedia.org/wiki/Duplex_(telecommunications)	"Duplex"
 
