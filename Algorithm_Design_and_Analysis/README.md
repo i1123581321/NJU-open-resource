@@ -5,5 +5,8 @@
 
 Introduction to Algorithms
 
+## 相关网络资源
+[黄宇老师知乎专栏——算法主义】(https://zhuanlan.zhihu.com/algocentric)
+
 ## 目录
-[Hashing & Amortized Analysis](NJU-Open-Resource/Algorithm_Design_and_Analysis/notes/Hashing.pdf)
+[Hashing & Amortized Analysis](./notes/Hashing.pdf)
