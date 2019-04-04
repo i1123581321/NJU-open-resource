@@ -1,4 +1,4 @@
-function x = SOF(A, b, n, x0, omega)
+function x = SOR(A, b, n, x0, omega)
     x = zeros(n, 1);
     iteration_count = 0;
     while iteration_count == 0 || norm(x-x0, inf) > 10^(-6)
