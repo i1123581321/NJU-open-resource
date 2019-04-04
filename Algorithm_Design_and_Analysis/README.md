@@ -6,4 +6,4 @@
 Introduction to Algorithms
 
 ## 目录
-[Hashing & Amortized Analysis](./notes/hashing.pdf)
+[Hashing & Amortized Analysis](NJU-Open-Resource/Algorithm_Design_and_Analysis/notes/Hashing.pdf)
