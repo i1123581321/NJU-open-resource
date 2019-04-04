@@ -6,7 +6,8 @@
 Introduction to Algorithms
 
 ## 相关网络资源
-[黄宇老师知乎专栏——算法主义】(https://zhuanlan.zhihu.com/algocentric)
+[黄宇老师知乎专栏——算法主义](https://zhuanlan.zhihu.com/algocentric)
+[Stack Overflow](https://stackoverflow.com/)
 
 ## 目录
 [Hashing & Amortized Analysis](./notes/Hashing.pdf)
