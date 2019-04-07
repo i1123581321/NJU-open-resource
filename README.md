@@ -30,6 +30,7 @@ Email: njucsresource@yandex.com
 根据拼音字母排序, 可以通过在此页面搜索课程名快速检索。
 
 * [计算方法](./numerical_method)
+* [计算机网络](./computer_network)
 * [算法设计与分析](./algorithm_design_and_analysis)
 * [数据结构](./data_structure)
 
