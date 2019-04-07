@@ -1,4 +1,4 @@
-# 链路层​
+# 链路层
 
 ## Link Service and Framing
 
@@ -611,6 +611,423 @@ $$
 U = \frac{1}{1 + (2e - 1)\alpha} \approx \frac{1}{1 + 4.44\alpha}
 $$
 
+## Bridge and Layer-2 switch
+
+### Bridge
+
+目标：扩展单个局域网，**提供 LANs/WANs 之间的互联**
+
+Bridge 的需求：
+
+* Store & Forward：读取 LAN 上传输的 frame，抽取 MAC 地址，选择性地缓存地址为其他 LAN 的 frame，然后使用第二个 LAN 的 MAC 协议，重传各个 frame
+* Transparent：对于结点来说 Bridge 是透明的
+* Plug-and-play, self-learning：即插即用，自学习，减少配置复杂度
+
+Bridge Protocol（IEEE 802.1D）
+
+* 处于链路层，使用 MAC 地址寻址
+* 不需要 LLC layer
+* 能通过外部的 WAN 传输 frame
+
+### Routing for Bridges
+
+Bridge 需要决定是否转发以及向何 LAN 转发，因此需要一个转发表
+
+而 Fix routing（即事先分配每个结点之间的路由）是没有实践性的
+
+Bridge Protocol 的目标：
+
+* 自动生成转发表
+* 在发生变动时自动更新转发表 
+
+#### Transparent Bridge
+
+##### Frame Forwarding
+
+转发表由三元组 `<MAC address, Port, Timestamp>` 组成
+
+对于来自 Port X 的 frame，在转发表中搜索目的 MAC 地址对应的 Port
+
+* 如果没有找到，则向 Port X 以外的所有 Port 转发该 frame
+* 若转发表中的 Port 是 X，则丢弃该 frame（LAN 内）
+* 若转发表中的 Port 是 Y，检查 Y 是 Block 状态还是 Forwarding 状态，如果是 Forwarding 状态则转发
+
+问题：转发会产生循环，解决方法：使用生成树
+
+##### Address Learning
+
+原理：当 Port X 有 frame 时，这个 frame 是从与 Port X 相连的 LAN 来的。
+
+故 **使用源地址更新转发表**
+
+转发表中每个表项有对应的计时器，到时间则删去对应表项。每次有帧来时更新转发表，以此实现自学习和动态更新
+
+##### Spanning Tree
+
+为每个 Bridge 分配唯一的标识，Bridge 之间交换信息建立生成树
+
+* 在 bridge 中选择一个 root bridge
+* 为其余 bridge 选择一个 root port（到 root 最短路径的 port）
+* 为每个 LAN 选择一个 designated bridge（到 root 最短路径的 bridge）
+* LAN 和 designated bridge 之间连接的 port 为 designated port
+* 所有 root port 和 designated port 置为 forwarding state
+* 其余 port 置为 block state
+
+#### Source Routing Bridge
+
+用于连接 Token Ring
+
+源结点决定路由，路由信息插入在 frame 中
+
+路由过程：
+
+* 每个结点广播一个 single-route broadcast frame，遍历所有 LAN 最终到达 destination
+  * Bridge 必须配置为一个生成树（见上小节）
+  * source 发送的 single-route frame 没有 route designator 字段
+  * 第一跳的 bridge 添加 `<incoming LAN #, bridge #, outgoing LAN #>`
+  * 之后的 bridge 在之后附加 `<bridge #, outgoing LAN #>`
+* destination 发送 all-routes broadcast frame，生成到 source 的所有 route 路径
+  * 第一跳的 bridge 添加 `<incoming LAN #, bridge #, outgoing LAN #>`
+  * 之后的 bridge 在之后附加 `<bridge #, outgoing LAN #>`
+  * 转发前检查 outgoing LAN 是否已经在 designator 字段，若在则停止转发（避免成环）
+* source 在其中选择最佳 route
+
+### Hubs
+
+每个结点由两条线路连接到 hub（传输&接收）
+
+hub acts as a reapter：当一个结点传输时，hub 将其信号发到其他所有节点
+
+**Hub 物理上是星型拓扑，逻辑上是总线拓扑**
+
+* 任何结点传输的 frame 会被其他所有结点收到
+* 两个结点同时传输时发生碰撞（single collision domain）
+
+### Layer-2 Switch
+
+具有 Bridge 的功能，兼容 hub 和 bridge（均使用以太网 MAC 协议）
+
+* Store & Forwarding
+* Transparent
+* Plug-and-play, self-learning
+
+与 Bridge 的不同：
+
+* Bridge：连接 LANs，通常只有 2-4 个 port
+* Switch：连接多个主机/子网，有大量端口，且能提供**无碰撞传输**
+
+#### multiple simutaneous transmission
+
+* 每个结点有专用的线路连接到 switch
+* switch 缓存并转发 frame
+* 全双工，无碰撞（每个链路有独自的碰撞域，而由于 switch 缓存分组，故不会碰撞）
+* 总传输速率为各端口传输速率之和
+
+#### Types of Layer-2 Switch
+
+Store-and-forward switch
+
+* 从输入线路接收 frame
+* **缓存**并向输出线路转发
+* 产生 delay
+
+Cut-through switch
+
+* 适用于目的地址在帧开头的情况
+* 识别出目的地址后立即在输出线路转发 frame
+* 最高的吞吐量
+* 可能会转发损坏的帧：不检查 CRC
+
+### Layer-3 Switch
+
+随着网络规模的增长，Layer-2 Switch 开始出现不足
+
+**Broadcast overload**：由 Layer-2 Switch 连接起来的的 LANs 物理上成为一个网络，所有节点共享 MAC 广播地址，broadcast frame 会发送到所有连接的主机，广播情况下 switch 效率降低到 hub 级别，而 IP 协议会产生很多广播（ARP, DHCP, IGMP）
+
+Lack of multiple paths：Layer-2 Switch 路由时为了不产生循环，使用生成树，任意两个节点间只有一条路径，限制了网络性能和可靠性
+
+Layer-3 Switch：硬件上实现了转发 IP 包的逻辑
+
+解决方法：
+
+* 将 LAN 划分为不同的子网，子网间使用 Layer-3 Switch（带路由功能的 switch） 连接
+* MAC broadcast frame 范围限制在子网内
+* 允许子网间的多路径
+
+Two Categories of Layer-3 Switch
+
+* Packet by packet：工作方式与传统路由器相同， 但性能比基于软件的路由器提升一个量级
+* Flow-based：提升 IP 分组流的性能
+
+## Wireless Networks
+
+### Wireless Networks
+
+#### Elements of a Wireless Network
+
+Wireless Hosts：终端，PC/手机/PDA等
+
+Base Station：连接至有线网络，在有线网络和 Wireless Hosts 之间传播数据
+
+Wireless Link：连接 host 和 base station，需要 MAC 协议
+
+Handoff：base station 之间由有线网络连接， mobile host 移动中会更换 base station
+
+#### Wireless Link Characteristics
+
+Decreased signal strength：信号强度随着传播距离迅速衰减
+
+Multipath propagation：广播信号会在物体上反射，在不同时间到达 destination（self-interfering）
+
+Interference form other sources：2.4Ghz 的频率会被手机/微波炉等干扰
+
+Robustness and security：容易被窃听
+
+#### SNR & BER
+
+SNR：signal-to-noise ratio，信噪比，越大越容易提取出信号
+
+BER：bit error ratio，误码率，越低越好
+
+对于给定的功率，提升功率 $\rightarrow$ 提升 SNR  $\rightarrow$ 降低  BER $\rightarrow$ 电池与温度限制
+
+#### Ad-hoc Networking
+
+peer-to-peer，没有 base station，节点间自己组织成网络
+
+|                   |                          single hop                          |                         multiple hop                         |
+| :---------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|  infrastructure   | host connects to base station (WiFi, WiMAX, cellular) which connects to larger Internet | host may have to relay through several wireless nodes to connect to larger Internet: mesh net |
+| no infrastructure | no base station, no connection to larger Internet (Bluetooth) | no base station, no connection to larger Internet. May have to relay to reach other a given wireless node MANET, VANET |
+
+### WiFi - IEEE 802.11 Wireless LANs
+
+#### IEEE 802.11 Architecture
+
+Station: device with IEEE 802.11 conformant MAC and physical layer
+
+Access Point (**AP**): Provides access to the distribution system via the wireless medium
+
+Basic Service Set (BSS):
+A single cell coordinated by one access point (base station)
+
+Extended Service Set (ESS):
+
+* Multiple BSSs interconnected by **Distribution System**(DS)
+* DS can be a switch, wired network, or wireless network
+* An ESS appearsas a **single logical LAN**
+* Portals (routers) provide access to Internet
+
+Distribution System (DS):
+A system used to interconnect a set of BSSs and integrated LANs to create an (ESS)
+
+参见 [IEEE 802.11][802.11]
+
+#### IEEE 802.11: Channels, association
+
+802.11b：2.4Ghz-2.485Ghz 的频率被分为 11 个不同的 channel，每个 AP 选择一个 channel，相邻 AP 若 channel 相同则会发生干扰（一般选择首尾和中间的 channel，最大程度避免干扰）
+
+结点与 AP 的关联过程：
+
+* 监听 channel 上的 AP 发出的 beacon frame（包含 AP 的 SSID 和 MAC 地址）
+* 选择 AP 与之关联
+* 认证（可选）
+* 使用 DHCP 获得 AP 的子网中的 IP 地址
+
+Passive Scanning：
+
+* AP 发送 beacon frame
+* 结点发送 Association Request
+* AP 发送 Association Response
+
+Active Scanning：
+
+* 结点广播 Probe Request frame
+* AP 回复 Probe Response frame
+* 结点发送 Association Request
+* AP 发送 Association Response
+
+#### IEEE 802.11 Service
+
+Distribution service: 通过 DS 在不同 BSS 间交换 frame
+
+Integration service: 在 802.11 LAN 和 802.x LAN 之间传输数据
+
+Authentication/Deauthentication: 连接中的认证
+
+Privacy: 编码数据，防止窃取
+
+Handoff 相关：
+
+Association:
+
+* 结点与 AP 间建立关联
+* 确认身份和地址
+* AP 与 其余 AP 通过 ESS 交流信息
+
+Reassociation:
+
+* 将建立的关联发送给其他 AP
+* 允许结点在 BSS 间转移
+
+Disassociation:
+
+* 终止关联
+* **ESS 之间的 handoff 不支持**
+
+#### Hidden terminal
+
+产生的问题：
+
+* Hidden terminal & Signal fading：假设三个终端 A, B, C，BC, BA 间可互相听到，但 AC 间不能互相听到，A, C 同时向 B 传输时便会在 B 处产生干扰
+* Exposed terminal：可以同时传输的情况下误以为会产生干扰，降低网络效率
+
+解决方法：4 Frame Exchange（RTS/CTS）
+
+* 源节点发送 Request to send（RTS）
+* 目的节点回复 Clear to send（CTS）
+* 收到 CTS 后源结点发送数据
+* 目的节点回复 ACK
+
+### IEEE 802.11 MAC
+
+#### Media Access Control
+
+Distributed coordination function(DCF): 分布式协调功能，分布式控制，传输异步数据，优先级最低
+
+Point coordination function(PDF): 点协调功能，集中式控制，发送实时数据，优先级仅次于控制帧
+
+#### 3-level Priority
+
+帧间隔决定了帧的优先级
+
+* SIFS (Short Inter Frame Space)
+  * 优先级最高
+  * 所有即时的回复
+* PIFS (point coordination function IFS)
+  * 中等长度 IFS，中等优先级
+  * 用于 PCF 中的轮询
+* DIFS (distributed coordination function IFS)
+  * 最长的 IFS，优先级最低
+  * 用于其他异步传输的数据
+
+SIFS 的帧
+
+* ACK
+* Delivery of multiple frame LLC PDU：第一个帧正常 IFS，之后的序列使用 SIFS
+* Poll response
+* CTS：RTS 使用正常 IFS，CTF 则是 SIFS
+
+PIFS 的帧（用于集中化控制）
+
+* 发送轮询
+* 优先于异步争抢
+* SIFS 的帧优先于 PCF 的轮询
+
+DIFS 的帧：其他一般的异步争用
+
+#### Point Coordination Function (PCF)
+
+由集中控制中心（点协调器）发布轮询（使用 PIFS），轮询时占据信道，阻塞其他异步通信
+
+参见 [Point coordination function][PCF]
+
+* 点协调器轮流询问结点
+* 发布轮询请求时结点可使用 SIFS 回复
+* 收到回复时，点协调器使用 PIFS 发送另一个请求
+* 如果在时间内没有回复，询问下一个结点
+
+Super frame：点协调器发布轮询时会占据信道封锁异步通信，为避免这种情况，定义 super frame，前半段时间点协调器轮询，后半段时间异步通信争用接入
+
+#### Distributed Coordination Function (DCF) and CSMA/CA
+
+使用 **CSMA/CA**，结点监听信道，**碰撞避免**
+
+参见 [Carrier-sense multiple access with collision avoidance][CSMA/CA]
+
+为何不是碰撞检测：
+
+* 无线网络不是全双工，在发送时难以接收信号
+* 发送结点不能区别收到的信号是否来自于噪声或自身传输的副作用
+* 不能检测到所有碰撞的情况：Hidden terminal
+* 使用 ACK 确认传输状态
+
+CSMA/CA 流程
+
+发送方：要发送 frame 的结点监听信道
+
+* 如果空闲，等待 1 IFS 后监听是否仍空闲，如果空闲，则立即发送（不做碰撞检测）
+* 如果繁忙，监听当前传输结束，**等待 1 IFS**
+  * 如果仍空闲，退避随机时间后再次监听（[binary exponential backoff](#Binary exponential backoff)）
+    * 如果退避后仍空闲，传输
+    * 如果退避时信道繁忙，则暂停退避的计时，待空闲后继续，如果计时结束，则发送
+    * 如果发送后没有收到 ACK，增大退避的时间，然后尝试重传
+
+接收方：如果帧正常，以 SIFS 发送 ACK
+
+#### Virtual Carrier Sensing
+
+MPDU：Mac Protocol Data Unit，无线设备交换数据基本单元
+
+**NAV**：Network Allocation Vector，MPDU 中的一个字段，标识传输这个 MPDU 需要多久
+
+Virtual Carrier Sensing：
+
+* 在 MPDU 中插入 NAV（标识信道将被占据的时间）
+* 其他结点根据 NAV 中的值休眠一段时间，在此时间内不监听信道
+
+#### IEEE 802.11 MAC Frames
+
+##### Management frames
+
+用于结点和 AP 之间交流
+
+* Association & Disassociation
+* Authentication & Deauthentication
+* Timing & Synchronization
+
+##### Control frames
+
+* Power-Save Poll (PS-Poll): 结点发给 AP，当结点处于休眠状态时 AP 缓存传输给其的 frame
+* RTS
+* CTS
+* ACK
+* Contention-Free-End (CF-end): PCF 的 contention free 阶段结束的告知
+* CF-end + CF-ACK
+
+##### Data Frames - Data Carring
+
+4 种，携带上层信息
+
+* Data
+* Data + CF-ACK
+* Data + CF-Poll
+* Data + CF-ACK + CF-Poll
+
+4 种不携带信息
+
+* Null function: 不携带信息，在控制字段携带 power management bit，告知结点进入低电量状态
+* CF-ACK
+* CF-Poll
+* CF-ACK + CF-Poll
+
+### Cellular Network
+
+不做要求
+
+Architecture
+
+* base station
+* mobile user
+* MSC (mobile switching center)
+
+多路技术：
+
+* FDMA 与 TDMA 结合
+* CDMA
+
+2g，3g，4g
+
 [Duplex]: https://en.wikipedia.org/wiki/Duplex_(telecommunications)	"Duplex"
 
 [SWP]: https://en.wikipedia.org/wiki/Sliding_window_protocol	"Sliding Window Protocol"
@@ -630,3 +1047,9 @@ $$
 [CSMA]: https://en.wikipedia.org/wiki/Carrier-sense_multiple_access	"Carrier-sense multiple access"
 
 [CSMA/CD]: https://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_detection	"Carrier-sense multiple access with collision detection"
+
+[802.11]: https://en.wikipedia.org/wiki/IEEE_802.11	"IEEE 802.11"
+
+[PCF]: https://en.wikipedia.org/wiki/Point_coordination_function	"Point coordination function"
+
+[CSMA/CA]: https://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_avoidance	"Carrier-sense multiple access with collision avoidance"
