@@ -1,4 +1,7 @@
+<img src="https://i.loli.net/2019/04/09/5cab77dcb0cce.jpg" alt="NJU.jpg" title="NJU.jpg"/>
+
 # 南京大学课程资源
+
 > 受[mbinary](https://github.com/mbinary)创建的中国科学技术大学[USTC-Course](https://github.com/USTC-Resource/USTC-Course)仓库的启发，建立此仓库。
 >
 > 本仓库收录南京大学计算机科学与技术系众多课程资源的学生原创笔记。
