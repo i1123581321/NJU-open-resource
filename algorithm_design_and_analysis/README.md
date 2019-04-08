@@ -4,11 +4,14 @@
 
 ## 目录
 
+* 作者：[i1123581321](https://github.com/ReversalS)
+  * [Model of Computation](./notes/chapter_1.pdf)
+
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
 
 ## 参考书目
-《算法设计与分析》
+[《算法设计与分析》](<https://book.douban.com/subject/27107107/>)
 
 Introduction to Algorithms
 
