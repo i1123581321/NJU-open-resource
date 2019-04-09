@@ -6,6 +6,8 @@
 
 * 作者：[i1123581321](https://github.com/ReversalS)
   * [Model of Computation](./notes/chapter_1.pdf)
+  * [Asymptotic](./notes/chapter_2_1.pdf)
+  * [Recursion](./notes/chapter_2_2.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
