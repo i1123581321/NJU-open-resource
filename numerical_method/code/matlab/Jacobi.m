@@ -1,4 +1,4 @@
-function x = JacobiRecursive(A, b, n, x0)
+function x = Jacobi(A, b, n, x0)
     x = zeros(n, 1);
     D = zeros(n, n);
     L = zeros(n, n);
@@ -27,7 +27,8 @@ function x = JacobiRecursive(A, b, n, x0)
     B = inv(D) * (L + U);
     f = inv(D) * b;
 
-    if vrho(B) > 1
+    if vrho(B) > 1  % 谱半径
+        disp(vrho(B));
         error('Not convergent\n');
     end
     x = B * x0 + f;

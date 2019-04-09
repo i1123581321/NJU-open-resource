@@ -77,6 +77,31 @@ $$
 
 ### 6.2 雅可比迭代法与高斯-赛德尔迭代法
 
+注：以下定义中
+$$
+\boldsymbol{L}=
+\begin{pmatrix}
+0\\
+-a_{21}&0\\
+\vdots&\vdots&\ddots\\
+-a_{n-1,1}&-a_{n-1,2}&\cdots&0\\
+-a_{n1}&-a_{n2}&\cdots&-a_{n,n-1} & 0
+\end{pmatrix}
+$$
+
+$$
+\boldsymbol{U}=
+\begin{pmatrix}
+0 & -a_{12} & \cdots & -a_{1,n-1} & -a_{1, n}\\
+& 0 &\cdots & -a_{2,n-1} & -a_{2, n}\\
+& & \ddots & \vdots & \vdots\\
+& & & 0 & -a_{n-1, n}\\
+& & & & 0
+\end{pmatrix}
+$$
+
+不是下三角/上三角矩阵
+
 #### 6.2.1 雅可比迭代法
 
 Jacobi迭代法式
@@ -110,7 +135,7 @@ $$
 $$
 其中$\boldsymbol{B=I-(D-L^{-1})A=(D-L)^{-1}U\equiv G,\ f=(D-L)^{-1}b.}$ 称$\boldsymbol{G=(D-L)^{-1}U}$为解$\boldsymbol{Ax=b}$的高斯-赛德尔迭代法的迭代矩阵。
 
-（注：L是下三角矩阵，U是上三角矩阵，A=L+U-D）
+注：G=tril(A)^-1 * (D - triu(A))，即下三角矩阵的逆乘以diag与上三角矩阵的差
 
 > ”串行计算，不适合多线程，实际应用的时候要考虑“
 
@@ -128,6 +153,8 @@ $$
 $$
 \text{弱对角占优矩阵：}|a_{ij}|\geq\sum_{j=1\\j\ne i}^n|a_{ij}|
 $$
+
+（注意：比较的对象是对角元素的绝对值与对应行（/列）其他元素绝对值的**和**）
 
 > **置换矩阵**
 >
@@ -149,13 +176,13 @@ $$
 
 **定理 8**（对角占优定理）如果$\boldsymbol{A}=(a_{ij})_{n\times n}$为严格对角占优矩阵或$\boldsymbol{A}$为不可约弱对角占优矩阵，则$\boldsymbol{A}$为非奇异矩阵.
 
-**定理 9** （没讲）设$\boldsymbol{Ax=b}$，如果：
+**定理 9** 设$\boldsymbol{Ax=b}$，如果：
 
 (1) $\boldsymbol{A}$为严格对角占优矩阵，则解$\boldsymbol{Ax=b}$的雅可比迭代法，高斯-赛德尔迭代法均收敛
 
 (2) $\boldsymbol{A}$为弱对角占优矩阵，且$\boldsymbol{A}$为不可约矩阵，则解$\boldsymbol{Ax=b}$的雅可比迭代法，高斯-赛德尔迭代法均收敛
 
-**定理 10** （没讲）对称矩阵，且对角元大于0，雅可比收敛的**充要**条件是矩阵正定，高斯-赛德尔的**充分**条件是矩阵正定
+**定理 10** 对称矩阵，且对角元大于0，雅可比收敛的**充要**条件是矩阵正定，高斯-赛德尔的**充分**条件是矩阵正定
 
 ### 6.3 超松弛迭代法
 
@@ -195,7 +222,7 @@ $$
 $$
 \max_{1\leq i\leq n}|\Delta x_i|=\max_{1\leq i\leq n}|x_i^{(k+1)}-x_i^{(k)}|<\varepsilon
 $$
-控制迭代中止，或用$\lVert \boldsymbol{r}^{(k)}\rVert_\infty = \lVert\boldsymbol{b-Ax}^{(k)}\rVert\infty<\varepsilon$控制迭代中止（后者更难算）
+控制迭代中止，或用$\lVert \boldsymbol{r}^{(k)}\rVert_\infty = \lVert\boldsymbol{b-Ax}^{(k)}\rVert_\infty<\varepsilon$控制迭代中止（后者更难算）
 
 > ”ω在1到2之间，想知道哪个比较好，那就试呗“
 
