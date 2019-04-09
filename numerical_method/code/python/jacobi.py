@@ -19,9 +19,10 @@ def jacobi(matrix: np.ndarray, k: int, verbose: bool = False) -> Optional[np.nda
                 x1[i] = (matrix[i][col - 1] - sum([matrix[i][j] * x0[j] for j in range(0, i)]) - sum(
                     [matrix[i][j] * x0[j] for j in range(i + 1, row)])) / matrix[i][i]
             if verbose:
-                print(str(_) + ": ", end="")
+                print(str(_ + 1) + ": ", end="")
                 print(x1)
-            x0 = x1
+                print(np.linalg.norm(x1 - x0, ord=np.inf))
+            x0 = x1.copy()
         return x1
     else:
         print("illegal input")
