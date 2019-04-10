@@ -12,6 +12,7 @@
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
+  * [Union-Find](./notes/Union-Find.pdf)
 
 ## 参考书目
 [《算法设计与分析》](<https://book.douban.com/subject/27107107/>)
