@@ -1,4 +1,7 @@
+<img src="https://i.loli.net/2019/04/09/5cab77dcb0cce.jpg" alt="NJU.jpg" title="NJU.jpg"/>
+
 # 南京大学课程资源
+
 > 受[mbinary](https://github.com/mbinary)创建的中国科学技术大学[USTC-Course](https://github.com/USTC-Resource/USTC-Course)仓库的启发，建立此仓库。
 >
 > 本仓库收录南京大学计算机科学与技术系众多课程资源的学生原创笔记。
@@ -30,7 +33,8 @@ Email: njucsresource@yandex.com
 根据拼音字母排序, 可以通过在此页面搜索课程名快速检索。
 
 * [计算方法](./numerical_method)
-
+* [计算机网络](./computer_network)
+* [算法设计与分析](./algorithm_design_and_analysis)
 * [数据结构](./data_structure)
 
 ## 贡献者

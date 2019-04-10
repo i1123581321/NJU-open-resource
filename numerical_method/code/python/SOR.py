@@ -22,9 +22,10 @@ def SOR(matrix: np.ndarray, k: int, omega: float, verbose: bool = False) -> Opti
                     [matrix[i][j] * x0[j] for j in range(i + 1, row)])) / matrix[i][i]
                 x1[i] = (1 - omega) * x0[i] + omega * y
             if verbose:
-                print(str(_) + ": ", end="")
+                print(str(_ + 1) + ": ", end="")
                 print(x1)
-            x0 = x1
+                print(np.linalg.norm(x1 - np.array([0.5, 1, -0.5]), ord=np.inf))
+            x0 = x1.copy()
         return x1
     else:
         print("illegal input")
@@ -33,5 +34,5 @@ def SOR(matrix: np.ndarray, k: int, omega: float, verbose: bool = False) -> Opti
 
 if __name__ == '__main__':
     a = get_matrix("m8.txt")
-    ans = SOR(a, 100, 1.3, True)
+    ans = SOR(a, 100, 1.1, True)
     print(ans)
