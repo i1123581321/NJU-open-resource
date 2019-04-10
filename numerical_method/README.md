@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # 《计算方法》笔记说明
 按照《数值分析》第5版的章节顺序整理申富饶老师《计算方法》课程 PPT 涉及的内容
 

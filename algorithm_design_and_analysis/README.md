@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # 算法设计与分析
 
 包括算法设计与分析课的课程内容整理、课件内容补充以及与 CLRS 对比学习的内容等，不涉及作业解答。

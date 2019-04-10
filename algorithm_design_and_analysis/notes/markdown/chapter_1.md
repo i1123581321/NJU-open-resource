@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # Model of Computation
 
 ## RAM Model
@@ -81,7 +83,7 @@ PRAM （Parallel Random Access Machine）
 
 如何测量？
 
-测量不能过于精确 $\rightarrow$ 依赖因素过多：机器/编程语言/编程范式/具体实现 $\rightarrow$ 神奇的 RAM 模型
+测量不能过于精确 $\rightarrow$ 依赖因素过多：机器/编程语言/编程范式/具体实现 $\rightarrow$ 神奇的 RAM 模型
 
 对于时间复杂度，统计简单操作的个数，对于空间复杂度，统计使用的存储单元数量，**将算法分析转变为计数问题**
 
