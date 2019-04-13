@@ -7,12 +7,12 @@
 ## 目录
 
 * 作者：[i1123581321](https://github.com/ReversalS)
-  * [Model of Computation](./notes/chapter_1.pdf)
-  * [Asymptotic](./notes/chapter_2_1.pdf)
-  * [Recursion](./notes/chapter_2_2.pdf)
-  * [Tutorial 1](./notes/tutorial_1.pdf)
-  * [QuickSort](./notes/chapter_6.pdf)
-  * [HeapSort](./notes/chapter_7.pdf)
+  * [Model of Computation](./notes/L_1.pdf)
+  * [Asymptotic](./notes/L_2.pdf)
+  * [Recursion](./notes/L_3.pdf)
+  * [Tutorial 1](./notes/T_1.pdf)
+  * [QuickSort](./notes/L_4.pdf)
+  * [HeapSort](./notes/L_5.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
