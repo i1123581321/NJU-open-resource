@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # Tutorial 1
 
 ## 数学归纳法溯源与公理化思维

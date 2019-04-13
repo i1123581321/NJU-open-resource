@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # Recursion
 
 ## Recursion algorithm
@@ -196,7 +198,7 @@ $E = \log_c b = \dfrac{\log b}{\log c}$
 * Case 2: $f(n) = \Theta(n^E), \text{then: } T(n) = \Theta(n^E\log n)$
 * Case 3: $f(n) = \Omega(n^{E + \varepsilon}), (\varepsilon > 0)$ and if $bf\left(\dfrac{n}{c} \right) < \theta f(n)$ for some constant $\theta < 1$ and all sufficiently large $n$ , then: $T(n) = \Theta(f(n))$
 
-可见 $f(n)$ 和 $n^E$ 中较大的一个决定时间复杂度，且在 Case 1/3 时要注意 $f(n)$ 必须**多项式地小于/大于** $n^E$ ($\varepsilon > 0$)
+可见 $f(n)$ 和 $n^E$ 中较大的一个决定时间复杂度，且在 Case 1/3 时要注意 $f(n)$ 必须**多项式地小于/大于** $n^E$ ($\varepsilon > 0$)
 
 > CRLS 3rd edition P.94
 >
@@ -205,4 +207,4 @@ $E = \log_c b = \dfrac{\log b}{\log c}$
 
 反例：$T(n) = 2T\left(\dfrac{n}{2} \right) + n\log n$
 
-$n \log n = \Omega(n)$ 但是 $n \log n = o(n^{1 + \varepsilon})$
+$n \log n = \Omega(n)$ 但是 $n \log n = o(n^{1 + \varepsilon})$

@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # 算法设计与分析
 
 包括算法设计与分析课的课程内容整理、课件内容补充以及与 CLRS 对比学习的内容等，不涉及作业解答。
@@ -5,10 +7,12 @@
 ## 目录
 
 * 作者：[i1123581321](https://github.com/ReversalS)
-  * [Model of Computation](./notes/chapter_1.pdf)
-  * [Asymptotic](./notes/chapter_2_1.pdf)
-  * [Recursion](./notes/chapter_2_2.pdf)
-  * [Tutorial 1](./notes/tutorial_1.pdf)
+  * [Model of Computation](./notes/L_1.pdf)
+  * [Asymptotic](./notes/L_2.pdf)
+  * [Recursion](./notes/L_3.pdf)
+  * [Tutorial 1](./notes/T_1.pdf)
+  * [QuickSort](./notes/L_4.pdf)
+  * [HeapSort](./notes/L_5.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
