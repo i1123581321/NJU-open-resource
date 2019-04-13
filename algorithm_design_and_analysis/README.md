@@ -11,6 +11,8 @@
   * [Asymptotic](./notes/chapter_2_1.pdf)
   * [Recursion](./notes/chapter_2_2.pdf)
   * [Tutorial 1](./notes/tutorial_1.pdf)
+  * [QuickSort](./notes/chapter_6.pdf)
+  * [HeapSort](./notes/chapter_7.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
