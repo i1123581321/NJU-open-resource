@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # QuickSort
 
 ## The Sorting Problem
@@ -64,14 +66,14 @@ $$
 
 最坏情况时间复杂度：在最差情况下，$n$ 个元素的输入最多可包含 $\dfrac{n(n-1)}{2}$ 个 inversion
 
-故一次比较最多消除一个 inversion 的排序算法的最坏情况时间复杂度一定为 $\Omega(n^2)​$ ，e.g. 选择排序，插入排序，冒泡排序
+故一次比较最多消除一个 inversion 的排序算法的最坏情况时间复杂度一定为 $\Omega(n^2)​$ ，e.g. 选择排序，插入排序，冒泡排序
 
 平均情况时间复杂度：考虑一个输入序列与其逆序
 $$
 x_1, x_2, x_3, \dots, x_n\\
 x_n, x_{n-1}, \dots , x_2, x_1
 $$
-一个 inversion $<x_i, x_j>$ 一定出现在其中一个序列之中，而 inversion 总和为 $\dfrac{n(n-1)}{2}$ ，故输入序列中 inversion 的个数期望为 $\dfrac{n(n-1)}{4}$
+一个 inversion $<x_i, x_j>$ 一定出现在其中一个序列之中，而 inversion 总和为 $\dfrac{n(n-1)}{2}$ ，故输入序列中 inversion 的个数期望为 $\dfrac{n(n-1)}{4}$
 
 一次比较最多消除一个 inversion 的排序算法的平均情况时间复杂度一定为 $\Omega(n^2)$ ，e.g. 选择排序，插入排序，冒泡排序
 
@@ -130,7 +132,7 @@ $$
 
 首先假设所有可能的输入等可能出现
 
-Partition 将 $n$ 个元素分为三部分（比较 $n - 1$ 次），左边部分有 $i$ 个元素（$0 \leqslant i \leqslant n - 1$），右边部分有 $n - i - 1$ 个元素，$i \in \{0, 1, 2, \dots, n -1\}$ ，选取每个值的概率相等，即 $\dfrac{1}{n}$
+Partition 将 $n$ 个元素分为三部分（比较 $n - 1$ 次），左边部分有 $i$ 个元素（$0 \leqslant i \leqslant n - 1$），右边部分有 $n - i - 1$ 个元素，$i \in \{0, 1, 2, \dots, n -1\}$ ，选取每个值的概率相等，即 $\dfrac{1}{n}$
 
 平均比较次数为
 $$
@@ -158,7 +160,7 @@ $$
 
 > Inductive Proof: $A(n) = O(n \ln n)​$
 >
-> $A(n) \leqslant cn\ln n$ for some constant $c$
+> $A(n) \leqslant cn\ln n$ for some constant $c$
 >
 > * Base case: n = 1 is trivial
 >
