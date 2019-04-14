@@ -18,6 +18,7 @@
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
   * [Union-Find](./notes/Union-Find.pdf)
   * [Selection](./notes/Selection.pdf)
+  * [Tutorial 3](./notes/Tutorial-3.pdf)
 
 ## 参考书目
 [《算法设计与分析》](<https://book.douban.com/subject/27107107/>)
@@ -32,3 +33,5 @@ Markdown 源文件见 [Markdown](https://github.com/i1123581321/NJU-open-resourc
 [黄宇老师知乎专栏——算法主义](https://zhuanlan.zhihu.com/algocentric)
 
 [Stack Overflow](https://stackoverflow.com/)
+
+[CLRS Solutions](https://walkccc.github.io/CLRS/)
