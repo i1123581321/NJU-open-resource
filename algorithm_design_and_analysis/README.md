@@ -13,6 +13,7 @@
   * [Tutorial 1](./notes/T_1.pdf)
   * [QuickSort](./notes/L_4.pdf)
   * [HeapSort](./notes/L_5.pdf)
+  * [MergeSort](./notes/L_6.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
