@@ -18,6 +18,7 @@
   * [Selection](./notes/L_7.pdf)
   * [Search](./notes/L_8.pdf)
   * [Hashing](./notes/L_9.pdf)
+  * [Union-Find](./notes/L_10.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
