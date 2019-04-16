@@ -16,6 +16,8 @@
   * [MergeSort](./notes/L_6.pdf)
   * [Tutorial 3](./notes/T_2.pdf)
   * [Selection](./notes/L_7.pdf)
+  * [Search](./notes/L_8.pdf)
+  * [Hashing](./notes/L_9.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
