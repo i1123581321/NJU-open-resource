@@ -14,11 +14,12 @@
   * [QuickSort](./notes/L_4.pdf)
   * [HeapSort](./notes/L_5.pdf)
   * [MergeSort](./notes/L_6.pdf)
-  * [Tutorial 3](./notes/T_2.pdf)
+  * [Tutorial 2](./notes/T_2.pdf)
   * [Selection](./notes/L_7.pdf)
   * [Search](./notes/L_8.pdf)
   * [Hashing](./notes/L_9.pdf)
   * [Union-Find](./notes/L_10.pdf)
+  * [Tutorial 3](./notex/T_3.pdf)
 
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
