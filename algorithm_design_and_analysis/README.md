@@ -20,7 +20,7 @@
   * [Hashing](./notes/L_9.pdf)
   * [Union-Find](./notes/L_10.pdf)
   * [Tutorial 3](./notex/T_3.pdf)
-* [习题课笔记](./notes/习题课.pdf)
+  * [习题课笔记](./notes/习题课.pdf)
   
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
