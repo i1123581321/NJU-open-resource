@@ -6,7 +6,7 @@
 
 ## 目录
 
-* 作者：[i1123581321](https://github.com/ReversalS)
+* 作者：[i1123581321](https://github.com/i1123581321)
   * [Model of Computation](./notes/L_1.pdf)
   * [Asymptotic](./notes/L_2.pdf)
   * [Recursion](./notes/L_3.pdf)
@@ -19,7 +19,7 @@
   * [Search](./notes/L_8.pdf)
   * [Hashing](./notes/L_9.pdf)
   * [Union-Find](./notes/L_10.pdf)
-  * [Tutorial 3](./notex/T_3.pdf)
+  * [Tutorial 3](./notes/T_3.pdf)
   * [习题课笔记](./notes/习题课.pdf)
   
 * 作者：[ReversalS](https://github.com/ReversalS)
