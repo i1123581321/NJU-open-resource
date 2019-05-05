@@ -22,6 +22,7 @@
   * [Tutorial 3](./notes/T_3.pdf)
   * [习题课笔记](./notes/习题课.pdf)
   * [Graph Traversal](./notes/L_11.pdf)
+  * [Directed Acyclic Graph](./notes/L_12.pdf)
   
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
