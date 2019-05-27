@@ -23,6 +23,7 @@
   * [习题课笔记](./notes/习题课.pdf)
   * [Graph Traversal](./notes/L_11.pdf)
   * [Directed Acyclic Graph](./notes/L_12.pdf)
+  * [Tutorial 4](./notes/T_4.pdf)
   * [Minimum Spanning Tree](./notes/L_14.pdf)
   
 * 作者：[ReversalS](https://github.com/ReversalS)
