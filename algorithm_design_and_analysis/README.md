@@ -26,6 +26,7 @@
   * [Undirected Graph](./notes/L_13.pdf)
   * [Tutorial 4](./notes/T_4.pdf)
   * [Minimum Spanning Tree](./notes/L_14.pdf)
+  * [Path in Graph](./notes/L_15.pdf)
   
 * 作者：[ReversalS](https://github.com/ReversalS)
   * [Hashing & Amortized Analysis](./notes/Hashing.pdf)
