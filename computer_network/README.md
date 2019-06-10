@@ -6,6 +6,7 @@
 
 * 作者：[i1123581321](https://github.com/i1123581321)
   * [链路层](./notes/link_layer.pdf)
+  * [网络安全](./notes/network_security.pdf)
 
 ## 参考书目
 
