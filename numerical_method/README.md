@@ -8,6 +8,7 @@
   * [Chapter 5 —— 第二讲 解线性方程组的直接方法](./notes/chapter_5.pdf)
   * [Chapter 6 —— 第三讲 解线性方程组的迭代法](./notes/chapter_6.pdf)
 * 作者 [i1123581321](https://github.com/i1123581321)
+  * [数值积分](./notes/L_6.pdf)
   * [常微分方程的数值解法](./notes/L_7.pdf)
   * [方程求根](./notes/L_8.pdf)
 
