@@ -8,7 +8,7 @@
   * [Chapter 5 —— 第二讲 解线性方程组的直接方法](./notes/chapter_5.pdf)
   * [Chapter 6 —— 第三讲 解线性方程组的迭代法](./notes/chapter_6.pdf)
 * 作者 [i1123581321](https://github.com/i1123581321)
-  * [绪论](./notes/L_1/pdf)
+  * [绪论](./notes/L_1.pdf)
   * [解线性方程组的直接法](./notes/L_2.pdf)
   * [迭代法解线性方程组](./notes/L_3.pdf)
   * [插值](./notes/L_4.pdf)
