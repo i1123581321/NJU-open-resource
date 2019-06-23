@@ -4,7 +4,7 @@
 
 ## Link Service and Framing
 
-### 链路层实现
+### Link layer
 
 Link 种类：
 
@@ -15,7 +15,7 @@ Link 种类：
 
 链路层硬件（终端）：网络适配器（Adapter），网卡（NIC, Network Interface Card）
 
-### 链路层服务
+### Link layer service
 
 * **Framing**
 * **Link Access**
@@ -32,7 +32,15 @@ Link 种类：
 
 接收方检查错误，解封 datagram 并传到上层
 
+帧结构由链路层协议决定
+
+#### Link Access
+
+媒体访问控制（Medium Access Control, MAC）协议规定了 frame 在链路上传递的规则。点对点的 MAC 较简单（或是不存在），而当多个节点共享单个广播链路时（LAN），即多路访问问题，MAC 协议用于协调多个节点的 frame 传输
+
 #### Reliable Delivery
+
+通过**确认与重传**保证可靠交付，通常用于差错率较高的链路，如无线网络，在低差错的链路（光纤，同轴电缆，双绞铜线）中一般不提供可靠交付服务
 
 使用 Flow control 确保接收方不会过载
 
@@ -60,15 +68,21 @@ ACK 包括了期望接收到的下一 frame 的序号和当前窗口大小
 
 更多参见 [Sliding Window Protocol][SWP]
 
+#### Error Detection and Correction
+
+在 frame 中插入差错检测位，由接收方检测及纠正（如果可以的话）frame 中的错误。通常由硬件实现
+
 ## Error Detection and Reliable Transmission
+
+链路层的差错校验是比特级的
 
 奇偶校验（单 Bit，二维）
 
 ### 循环冗余校验 CRC
 
-设数据为 $D$ ，CRC 位 $R$ 为 $r$ 位，选择 $r + 1$ 位的生成多项式 $G​$
+设数据为 $D$ ，CRC 位 $R$ 为 $r$ 位，选择 $r + 1$ 位的生成多项式 $G$
 $$
-D \times 2^r = a \times G \oplus R, \quad D \times 2^r \oplus G = a \times G \\
+D \times 2^r = a \times G \oplus R, \quad D \times 2^r \oplus R = a \times G \\
 R = remainder(\frac{D \times 2^r}{G})
 $$
 CRC 算法伪代码：
@@ -79,19 +93,6 @@ CRC 算法伪代码：
   * 寄存器左移一位，空位读入 1 位数据
   * 如果上一步左移移出位为 1
     * CRC 寄存器异或生成多项式
-
-Haskell 实现：
-
-```haskell
-crc::String -> String -> String -> String
-crc [] a _ = a
-crc (_:_) [] _     = []
-crc (_:_) (_:_) [] = []
-crc (d:ds) reg@(r:_) gen@(_:gs) = let newReg = if r == '1'
-                                               then xor (sl reg d) gs
-                                               else sl reg d
-                                  in crc ds newReg gen
-```
 
 参见 [Cyclic Redundancy Check][CRC]
 
@@ -183,7 +184,7 @@ frame 在**绕环一周后**由发送方删除
 
 * 设环中有 $N$ 个结点
 * Token 绕环一圈的时间为 $T$
-* 每个 node 传输数据平均时间为 $T'​$
+* 每个 node 传输数据平均时间为 $T'$
 
 则平均等待时间为
 $$
@@ -216,7 +217,7 @@ Multiple Access Links 的特点：
 * 两个及以上的结点传输会发生干扰
 * **碰撞**：结点同时收到两个及以上的信号
 
-理想的 Multiple Access Protocol 的特点（假设广播信道的带宽为 $R​$）：
+理想的 Multiple Access Protocol 的特点（假设广播信道的带宽为 $R$）：
 
 1. 只有一个结点传输时，速率为 $R$
 2. $M$ 个结点传输时，每个结点的平均传输速率为 $\dfrac{R}{M}$
@@ -504,7 +505,7 @@ $$
 
 * frame transmission time: 1
 * end to end propagation time: $\alpha$
-* number of stations: $N​$
+* number of stations: $N$
 
 Max Utilization
 $$
@@ -530,7 +531,7 @@ $$
 
 假设有 $N$ 个结点，每个传输的概率为 $p$
 
-* 一个结点成功传输的概率：$p(1-p)^{N-1}​$
+* 一个结点成功传输的概率：$p(1-p)^{N-1}$
 * 任意一结点成功传输的概率：$A = Np(1-p)^{N-1}$
 
 $p = \dfrac{1}{N}$ 时 $A$ 取得最大值 $\left(1-\dfrac{1}{N}\right)^{N-1}$
@@ -575,10 +576,10 @@ $$
 * length of link: $L$
 * Propagation speed: $V$
 * frame size: $Size$
-* Propagation time: $T_a = \dfrac{L}{V}​$
+* Propagation time: $T_a = \dfrac{L}{V}$
 * Transmission time: $T_b = \dfrac{Size}{B}$
 
-最差情况下需要 $2T_a​$ 的时间才能检测到碰撞，（Minimum contention interval）
+最差情况下需要 $2T_a$ 的时间才能检测到碰撞，（Minimum contention interval）
 
 Minimum frame size
 $$
