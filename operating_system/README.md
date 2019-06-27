@@ -9,5 +9,6 @@
   * [并发进程](./notes/chapter_03.pdf)
   * [存储管理](./notes/chapter_04.pdf)
   * [设备管理](./notes/chapter_05.pdf)
+  * [文件管理](./notes/chapter_06.pdf)
 
 Markdown 源文件见 [Markdown](https://github.com/i1123581321/NJU-open-resource/tree/master/operating_system/notes/markdown)，与对应文件名的 PDF 保持同步
