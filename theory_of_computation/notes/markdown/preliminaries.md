@@ -1,3 +1,5 @@
+[![white.png](https://i.loli.net/2019/04/11/5cae134487910.png)](https://github.com/i1123581321/NJU-open-resource)
+
 # Preliminaries
 
 ## Mathematical Preliminaries
@@ -8,7 +10,7 @@
 
 Universal set: all possible elements
 
-集合的操作：$\cup$ (Union), $\cap$ (Intersection), $-$ (Difference), $\overline{A}$ (Complement)
+集合的操作：$\cup$ (Union), $\cap$ (Intersection), $-$ (Difference), $\overline{A}$ (Complement)
 
 De Morgan's Law: 
 $$
@@ -17,7 +19,7 @@ $$
 $$
 Null set: $\varnothing$
 
-Subset: $A \subseteq B$ , 如果 $A \neq B$ 即为 proper subset，记为 $A \subset B$
+Subset: $A \subseteq B$ , 如果 $A \neq B$ 即为 proper subset，记为 $A \subset B$
 
 Disjoint Sets: $A \cup B = \varnothing$
 
@@ -33,7 +35,7 @@ Cartesian Product: 笛卡尔积，$|A \times B| = |A| \cdot |B|$
 $$
 f: A \to B
 $$
-total function: $A = $ domain
+total function: $A = $ domain
 
 injective function: $\forall a, a' \in A, a \neq a' \to f(a) \neq f(a')$
 
@@ -55,10 +57,10 @@ $$
 $$
 两个等价类之间的关系只有相等或 disjoint
 
-对于 $A$ 上的关系 $R$ ，有
+对于 $A$ 上的关系 $R$ ，有
 
 * Partial order: Reflexive, Transitive and **Antisymmetric**
-* Total order: partial order and $\forall a, b \in A$ , either $aRb$ or $bRa$, also called **linear order**
+* Total order: partial order and $\forall a, b \in A$ , either $aRb$ or $bRa$, also called **linear order**
 
 ### Graphs
 
@@ -91,7 +93,7 @@ String: alphabet 中的符号组成的序列（有穷？）
 
 $\Sigma^{*}$: the set of all possible strings from alphabet $\Sigma$ (including $\lambda$)
 
-$\Sigma^{+}$: the set of all possible strings from alphabet $\Sigma$ except $\lambda$ , $\Sigma^{+} = \Sigma^{*} - \{\lambda\}$
+$\Sigma^{+}$: the set of all possible strings from alphabet $\Sigma$ except $\lambda$ , $\Sigma^{+} = \Sigma^{*} - \{\lambda\}$
 
 string 有几种运算，对于 string $w = a_{1}a_{2}\dots a_{n}, v = b_{1}b_{2}\dots b_{m}$
 
@@ -110,7 +112,7 @@ string 有几种运算，对于 string $w = a_{1}a_{2}\dots a_{n}, v = b_{1}b_{2
 
 Language 是 string 的集合，即 $\Sigma^{*}$ 的子集
 
-> e.g. $L = \{a^{n}b^{n}:n \geqslant 0\}$ ，这个 Language 不能通过正则描述
+> e.g. $L = \{a^{n}b^{n}:n \geqslant 0\}$ ，这个 Language 不能通过正则描述
 
 由于 Language 本质是集合，故集合的操作同样适用于 Language（Union，Intersection，Difference，Complement），$\overline{L} = \Sigma^{*} - L$
 
