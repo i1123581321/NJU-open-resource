@@ -43,7 +43,7 @@ $$
 
 设离散型随机变量所有可能取值为 $x_{1}, x_{2}, \dots, x_{n}, \dots$ 则
 $$
-P(X = x_{k}) = p_{k}, k = 1, 2, \dotsm
+P(X = x_{k}) = p_{k}, k = 1, 2, \dots
 $$
 称为 X 的**分布律**，可使用表格形式给出
 
@@ -274,12 +274,58 @@ $$
 > $$
 > (P(Z \leqslant x))^{\prime} = \frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{x^{2}}{2}} \sigma = \frac{1}{\sqrt{2 \pi}}e^{-\frac{x^{2}}{2}} = \varphi(x)
 > $$
-> 即 $Z$ 的 PDF 为 $\varphi(x)$ ，根据定义，$Z \sim N(0,1)$
+> 即 $Z$ 的 PDF 为 $\varphi(x)$ ，根据定义，$Z \sim N(0,1)$
 
 根据以上重要性质，可得对于 $X \sim N(\mu, \sigma^{2})$
 $$
 F(x) = P(X \leqslant x) = \varPhi \left(\frac{x - \mu}{\sigma} \right)\\
 P(a < X < b) = \varPhi \left(\frac{b - \mu}{\sigma} \right) - \varPhi \left(\frac{a - \mu}{\sigma} \right)
 $$
-$3 \sigma$ 法则：$X \sim N(\mu, \sigma^{2})$ 在取值时落入 $[\mu - 3\sigma, \mu + 3\sigma]$ 的概率超过 99.7%
+$3 \sigma$ 法则：$X \sim N(\mu, \sigma^{2})$ 在取值时落入 $[\mu - 3\sigma, \mu + 3\sigma]$ 的概率超过 99.7%
 
+## 随机变量函数的分布
+
+设 $X$ 是随机变量，$y= g(x)$ 是普通实函数，则令随机变量 $Y$ 在 $X$ 取 $x$ 时取 $g(x)$ ，记为 $Y = g(X)$ ，$Y$ 作为一个随机变量，也有自己的概率分布
+
+### 离散型随机变量
+
+设 $X$ 是离散型随机变量，其分布律为
+$$
+P(X = x_{k}) = p_{k}, k = 1, 2, \dots
+$$
+则对于 $X$ 的函数 $Y = g(x)$ ，当 $X$ 取 $x_{k}$ 时 $Y$ 取 $y_{k} = g(x_{k})$ ，$Y$ 也是离散型随机变量
+
+当 $y_{1}, y_{2}, \dots, y_{k}, \dots$ 取值各不相同时，有
+$$
+P(Y = y_{k}) = P(Y = g(x_{k})) = P(X = x_{k}) = p_{k}
+$$
+若 $y_{1}, y_{2}, \dots, y_{k}, \dots$ 中有取值相同的， e. g. $y_{i} = y_{j}$ ，即 $g(x_{i}) = g(x_{j})$ ，则
+$$
+P(Y = y_{i}) = P(Y = g(x_{i}) \cup Y = g(x_{j})) = P(X = x_{i}) + P(X= x_{j}) = x_{i} + x_{j}
+$$
+即多个 $y_{k}$ 取值相同时，应当把对应的概率加起来
+
+### 连续型随机变量
+
+**分布函数法**：先求 $Y$ 的分布函数 $F_{Y}(y)$
+$$
+F_{Y}(y) = P(Y \leqslant y) = P(g(x) \leqslant y) = \underset{x:g(x) \leqslant y}{\int} p_{X}(x)dx
+$$
+然后根据积分变限函数的求导法则求得
+$$
+p_{Y}(y) = F^{\prime}_{Y}(y)
+$$
+
+> 公式法：
+>
+> 设随机变量 $X$ 的可能取值范围为 $(a, b)$ ，$X$ 的 pdf 为 $p_{X}(x)，a < x < b$ ，其中 $a$ 可为 $-\infin$ ，$b$ 可为 $+\infin$ ，设 $y=g(x)$ 处处可导，且严格单调（恒有 $g^{\prime}(x) < 0$ 或 $g^{\prime}(x) > 0$） ，则 $Y = g(X)$ 为连续型随机变量，且其 pdf 为
+> $$
+> p_{Y}(y) = 
+> \begin{cases}
+> p_{X}[g^{-1}(y)] \cdot |g^{-1}(y)|^{\prime} & \alpha < y < \beta\\
+> 0& \text{o. t.}
+> \end{cases}
+> $$
+> 其中 $\alpha = \min\{g(a), g(b) \}, \beta = \max\{g(a), g(b) \}$ ，$g^{-1}(y)$ 为 $g(x)$ 反函数
+>
+> 公式法不如分布函数法泛用

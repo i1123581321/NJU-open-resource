@@ -6,5 +6,6 @@
 ## 目录
 * 作者：[i1123581321](https://www.github.com/i1123581321)
   * [Lexical analysis](./notes/chapter_03.pdf)
+  * [Syntax analysis](./notes/chapter_04.pdf)
 
 Markdown 源文件见 [Markdown](https://github.com/i1123581321/NJU-open-resource/tree/master/compiler_principle/notes/markdown)，与对应文件名的 PDF 保持同步
