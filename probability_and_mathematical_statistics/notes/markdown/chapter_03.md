@@ -199,6 +199,174 @@ $$
 $$
 p(x, y) = g_{1}(x)g_{2}(y)
 $$
-对于二维正态分布来说，其分量独立 $\iff$ 参数 $\rho = 0$
+对于二维正态分布来说，其分量独立 $\iff$ 参数 $\rho = 0$
 
 ## 随机向量函数的分布
+
+问题：设 $(X, Y)$ 是一个二维随机向量，$Z = g(X, Y)$ 是一个一维随机变量，由 $(X, Y)$ 的分布计算 $Z$ 的分布
+
+### 二维离散型随机向量
+
+设 $(X, Y)$ 是二维离散型随机变量，则 $Z = g(X, Y)$ 最多可以取可数个值，$Z$ 也是离散型随即变量。其分布律为
+$$
+P(Z = z_{k}) = P(g(X, Y) = z_k) = \sum_{g(x_{i}, y_{j}) = z_{k}}p_{ij}
+$$
+考虑几种特殊的 $Z = g(X, Y)$
+
+#### 随机变量和的分布
+
+设 $Z = X+Y$ ，则其分布律为
+$$
+P(Z = z_{k}) = \sum_{x_{i}} P(X = x_{i}, Y = z_{k} - x_{i})
+$$
+特别的，若 $X, Y$ 独立
+$$
+P(Z = z_{k}) = \sum_{x_{i}} P(X = x_{i})P( Y = z_{k} - x_{i})
+$$
+上述公式被称为**卷积公式**
+
+> 离散型分布的可加性
+>
+> * 泊松分布：两个独立的泊松分布 $X \sim P(\lambda_{1}), Y \sim P(\lambda_{2})$ ，其和 $Z = X + Y \sim P(\lambda_{1}+ \lambda_{2})$
+> * 二项分布：两个独立的二项分布 $X \sim B(n_{1}, p) , Y \sim B(n_{2}, p)$ ，其和 $Z = X+ Y \sim B(n_{1} + n_{2}, p)$
+
+#### 随机变量商的分布
+
+设 $P(Y = 0) = 0, Z = X / Y$ ，则其分布律为
+$$
+P(Z = z_{k}) = \sum_{y_{j}}P(X = z_{k}\cdot y_{j}, Y = y_{j})
+$$
+对于随机变量的乘积，也可也看作是商的分布
+
+### 二维连续型随机向量
+
+对于二维连续型随机向量 $(X, Y)$ ，其联合密度函数为 $p(x, y)$ ，其函数 $Z = g(X, Y)$ 也是一个连续型随机变量，计算其密度函数可以使用**分布函数法**
+$$
+F_{Z}(z) = P(Z \leqslant z) = \underset{g(x, y) \leqslant z}{\iint}p(x, y)dxdy
+$$
+求出其分布函数 $F_{Z}(z)$ 后求密度函数只要对其求导即可
+
+> 瑞利（Rayleigh）分布：$X, Y$ 独立同分布于 $N(0, 1)$，则 $Z = \sqrt{X^{2} + Y^{2}}$ 的密度函数为
+> $$
+> p_{Z}(z) = \begin{cases}
+> ze^{-\frac{z^{2}}{2}} & z \geqslant 0 \\
+> 0 & z < 0
+> \end{cases}
+> $$
+
+分布函数法是最普适的求连续型随机向量分布的方法，对于一些特殊的函数，有
+
+#### 随机变量和的分布
+
+设 $(X, Y)$ 有联合密度函数 $p(x, y)$ ，$Z = X + Y$ 是连续型随机变量，其密度函数为
+$$
+p_{Z}(z) = \int_{-\infin}^{+\infin}p(x, z - x)dx
+$$
+特别的，当 $X, Y$ 独立，其边缘密度为 $p_{X}(x), p_{Y}(y)$ 时，有
+$$
+p_{Z}(z) = \int_{-\infin}^{+\infin}p_{X}(x)p_{Y}(z - x)dx
+$$
+这个公式也被称为 $p_{X}(x)$ 和 $p_{Y}(y)$ 的**卷积公式**
+
+注意在积分时上下限的选择要使得密度函数不为 0
+
+#### 随机变量商的分布
+
+设 $(X, Y)$ 有联合密度函数 $p(x, y)$ ，且 $Y \neq 0$ ，则 $Z = X/Y$ 是连续型随机变量，其密度函数为
+$$
+p_{Z}(x) = \int_{-\infin}^{+\infin}|y|p(zy, y)dy
+$$
+
+> Proof. $Z$ 的分布函数为
+> $$
+> \begin{align}
+> F_{Z}(z) = P(Z \leqslant z) &= \underset{x/y \leqslant z}{\iint}p(x, y)dxdy \\
+> &= \int_{0}^{+\infin}\int_{-\infin}^{zy}p(x,y)dxdy + \int_{-\infin}^{0}\int_{zy}^{+\infin}p(x,y)dxdy
+> \end{align}
+> $$
+> 则其密度函数为
+> $$
+> \begin{align}
+> p_{Z}(z) = F^{\prime}_{Z}(z) &= \left(\int_{0}^{+\infin}\int_{-\infin}^{zy}p(x,y)dxdy \right)^{\prime} + \left(\int_{-\infin}^{0}\int_{zy}^{+\infin}p(x,y)dxdy\right)^{\prime}\\
+> &=\int_{0}^{+\infin}yp(zy, y)dy + \int_{-\infin}^{0}-yp(zy, y)dy\\
+> &= \int_{-\infin}^{+\infin}|y|p(zy, y)dy
+> \end{align}
+> $$
+
+#### 随机变量极值的分布
+
+设 $X, Y$ 相互独立，则考虑 $M = \max(X, Y), N = \min(X, Y)$
+
+对于 $M = \max(X, Y)$ ，其分布函数为
+$$
+F_{M}(z) = P(M \leqslant z) = P(\max(X, Y) \leqslant z) = P(X \leqslant z, Y \leqslant z)
+$$
+由于 $X,Y$ 独立，有
+$$
+F_{M}(z) = P(X \leqslant z)P(Y \leqslant z) = F_{X}(z)F_{Y}(z)
+$$
+ 对于 $N = \min(X, Y)$ ，其分布函数为
+$$
+F_{N} = P(\min(X, Y) \leqslant z) = 1 - P(\min(X, Y) > z) = 1 - P(X > z, Y > z)
+$$
+由于 $X, Y$ 独立，有
+$$
+F_{N}(z) = 1 - P(X > z)P(Y > z) = 1 - (1 - F_{X}(z))(1 - F_{Y}(z))
+$$
+上述结论可以推广至有限个相互独立的随机变量。
+
+进而，当 $X, Y$ 是连续型随机变量时，$M, N$ 也是连续型随机变量，对其分布函数求导，有
+$$
+p_{M}(z) = p_{X}(z)F_{Y}(z) + F_{X}(z)p_{Y}(z)\\
+p_{N}(z) = p_{X}(z)(1 - F_{Y}(z)) + p_{Y}(z)(1 - F_{X}(z))
+$$
+
+> 对于一个串并联系统来说，设两个元件寿命的随机变量为 $X, Y$ ，则整个系统的寿命的随机变量为
+>
+> * 串联：$\min(X, Y)$
+> * 并联：$\max(X, Y)$
+> * 备用：$X + Y$
+
+#### 一般情况下随机变量函数的分布
+
+首先考虑 $(X, Y)$ 的两个函数的联合分布。
+
+设 $(X, Y)$ 的联合密度为 $p(x, y)$ ，随机变量 $U, V$ 都是 $(X, Y)$ 的函数
+$$
+U = g(X, Y), V = h(X, Y)
+$$
+这里的函数 $g, h$ 满足：
+
+存在唯一的逆变换
+$$
+\begin{cases}
+x = x(u, v) \\
+y = y(u, v)
+\end{cases}
+$$
+存在连续的一阶偏导数，且雅可比行列式
+$$
+J(u, v) = \left|
+\begin{array}{cc}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial y} \\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial y}
+\end{array}
+\right| \neq 0
+$$
+则其联合分布为
+$$
+F_{(U, V)}(u, v) = P(U \leqslant u, V \leqslant v) = \underset{g(x, y) \leqslant u, h(x, y) \leqslant v}{\iint}p(x, y)dxdy
+$$
+进行变量替换，可得
+$$
+F_{(U, V)}(u, v) = \int_{-\infin}^{v}\int_{-\infin}^{u}p(x(z_{1}, z_{2}), y(z_{1}, z_{2}))|J(z_{1}, z_{2})|dz_{1}dz_{2}
+$$
+则 $(U, V)$ 的联合密度为
+$$
+l(u, v) = p(x(u, v), y(u, v))|J(u, v)|
+$$
+若求 $Z = g(X, Y)$ 的分布时，只需求上述联合分布的边缘分布即可，即
+$$
+p_{Z}(z) = \int_{-\infin}^{+\infin}l(z, v)dv
+$$
+此时一般另一个函数选择 $V = x$ 等易于计算的函数。
