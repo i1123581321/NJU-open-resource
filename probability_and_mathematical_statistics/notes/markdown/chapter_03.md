@@ -52,7 +52,7 @@ $$
 类比离散型随机变量，联合分布律有性质
 
 * $p_{ij} \geqslant 0, i, j = 1, 2, \dots$
-* $\sum_{i=1}^{+\infin}\sum_{j=1}^{+\infin} = 1$
+* $\sum_{i=1}^{+\infin}\sum_{j=1}^{+\infin} p_{ij} = 1$
 
 > 二维离散型随机向量有两种重要的分布：多项分布，多元超几何分布。这两种分布分别是二项分布和超几何分布的推广
 >
@@ -109,7 +109,7 @@ $$
 $$
 对于任意有限实数 $x$ ，令 $G = (-\infin , x] \times (-\infin, +\infin)$ ，则可以得到 $X$ 的边缘分布
 $$
-F_{X}(x) = P((X, Y) \in G) = \int_{-\infin}^{x}\int_{-\infin}^{+\infin}p(x, y)dxdy
+F_{X}(x) = P((X, Y) \in G) = \int_{-\infin}^{x}\int_{-\infin}^{+\infin}p(x, y)dydx
 $$
 求导，可以得到 $X$ 的概率密度为
 $$
@@ -228,7 +228,7 @@ $$
 > 离散型分布的可加性
 >
 > * 泊松分布：两个独立的泊松分布 $X \sim P(\lambda_{1}), Y \sim P(\lambda_{2})$ ，其和 $Z = X + Y \sim P(\lambda_{1}+ \lambda_{2})$
-> * 二项分布：两个独立的二项分布 $X \sim B(n_{1}, p) , Y \sim B(n_{2}, p)$ ，其和 $Z = X+ Y \sim B(n_{1} + n_{2}, p)$
+> * 二项分布：两个独立的二项分布 $X \sim B(n_{1}, p) , Y \sim B(n_{2}, p)$ ，其和 $Z = X+ Y \sim B(n_{1} + n_{2}, p)$
 
 #### 随机变量商的分布
 
@@ -348,8 +348,8 @@ $$
 $$
 J(u, v) = \left|
 \begin{array}{cc}
-\frac{\partial x}{\partial u} & \frac{\partial x}{\partial y} \\
-\frac{\partial y}{\partial u} & \frac{\partial y}{\partial y}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
 \end{array}
 \right| \neq 0
 $$
@@ -369,4 +369,4 @@ $$
 $$
 p_{Z}(z) = \int_{-\infin}^{+\infin}l(z, v)dv
 $$
-此时一般另一个函数选择 $V = x$ 等易于计算的函数。
+此时一般另一个函数选择 $V = x$ 等易于计算的函数。

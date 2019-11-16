@@ -146,11 +146,11 @@ $$
 >
 > * $L - R = L \cap \overline{R}$ ，而 $\overline{R}$ 是正则
 > * 若 $\overline{L}$ 总是 CFL，则考虑 $L_{1} \cap L_{2} = \overline{\overline{L_{1}} \cup \overline{L_{2}}}$ ，这与上述结论矛盾
-> * 若 $L_{1} - L_{2}$ 总是 CFL，则 $\Sigma^{*} - L = \overline{L}$ 也是 CFL，这与上述结论矛盾 
+> * 若 $L_{1} - L_{2}$ 总是 CFL，则 $\Sigma^{*} - L = \overline{L}$ 也是 CFL，这与上述结论矛盾 
 
 ### Inverse Homomorphism
 
-证明思路类似证明正则语言对 inverse homomorphism 是封闭的。构造一个 PDA，每当读入一个输入 $a$ ，则将 $h(a)$ 放入一个 buffer 中，每次读取其中一个符号，用于模拟 PDA 的运行，直至读入结束，再读入下一个符号
+证明思路类似证明正则语言对 inverse homomorphism 是封闭的。构造一个 PDA，每当读入一个输入 $a$ ，则将 $h(a)$ 放入一个 buffer 中，每次读取其中一个符号，用于模拟 PDA 的运行，直至读入结束，再读入下一个符号
 
 考虑 CFL $L$ 和 homomorphism $h$ ，则 $h^{-1}(L)$ 也是 CFL
 
@@ -180,7 +180,78 @@ $$
 > $$
 > 证明基于对推导步数的归纳即可。需要注意的是 $P^{\prime}$ 在 buffer 非空时一定模拟 $P$ 的运行，但是当 buffer 为空时仍有可能继续模拟 $P$ 的运行
 >
-> 故 $w \in L(P^{\prime}) \iff h(w) \in L(P)$ ，即 $L(P^{\prime}) = h^{-1}(L(P))$
+> 故 $w \in L(P^{\prime}) \iff h(w) \in L(P)$ ，即 $L(P^{\prime}) = h^{-1}(L(P))$
 
 ## Decision Properties of CFL
 
+对于 CFL 的 decision properties，有一些是有确定的算法可以解决的
+
+* 判断 $w$ 是否在 CFL $L$ 中
+* 判断 CFL $L$ 是否为空
+* 判断 CFL $L$ 是否无限
+
+而有一些没有算法可以解决，换言之这些问题是 undecidable 的
+
+* 判断两个 CFL 是否相等
+* 判断两个 CFL 是否 disjoint
+
+### Emptiness of CFL
+
+测试 CFL $L$ 是否为空只需要测试其开始符号 $S$ 是否为 generating 即可
+
+CFL $L$ 非空 $\iff$ 其开始符号 $S$ 为 generating
+
+### Membership of CFL
+
+有一种算法利用 DP 的思想，若 string 的长度为 $n$ ，可以在 $O(n^{3})$ 的时间内确定这个 string 是否在给定的 CFL 中，即 CYK 算法。
+
+考虑 CFL $L$ 及其 CNF 形式的文法 $G= (V, T, P, S)$ ，设 $|w| = n, w = a_{1}a_{2} \dots a_{n}$ ，算法构造一个三角矩阵形如
+$$
+\begin{array}{cccc}
+x_{1n} & & &\\
+x_{1n-1} & x_{2n} & & \\
+\vdots & \vdots & \ddots\\
+x_{11} & x_{22} & \dots & x_{nn}
+\end{array}
+$$
+其中
+$$
+x_{ij} = \{A:A\overset{*}{\Rightarrow} a_{i}a_{i+1}\dots a_{j} \}
+$$
+则
+$$
+S \in x_{1n} \iff S \overset{*}{\Rightarrow} w
+$$
+从底向上，第 $i$ 行的条目都代表了一系列 variable，可以推导出长为 $i$ 的 substring
+
+计算表中条目是一个从底向上的归纳的过程
+
+Basis. 即最底下一行，$x_{ii} = \{A:A \to a_{i} \in G\}$ 
+
+Induction. 假设需要计算 $x_{ij}$ ，位于第 $j - i + 1$ 行，且其下的条目都已计算，则任意推导过程
+$$
+A \overset{*}{\Rightarrow} a_{i}a_{i+1}\dots a_{j}
+$$
+都从 $A \to BC$ 开始，则对某个 $i \leqslant k < j$ 有
+$$
+B \overset{*}{\Rightarrow} a_{i} \dots a_{k}\\
+C \overset{*}{\Rightarrow} a_{k+1} \dots a_{j}\\
+$$
+则需要找到所有满足
+
+* $i \leqslant k < j$
+* $B \in x_{ik}$
+* $C \in x_{k+1j}$
+* $A \to BC \in G$
+
+的 $A$ ，这样的 $A$ 即为 $x_{ij}$ 的成员
+
+CYK 算法的正确性从其归纳的计算过程中即可得出。
+
+算法计算每个条目需要 $O (n)$ 的时间，因为其要检查每个 $(x_{ik}, x_{k+1j})$ 对，而表中一共有 $\frac{n(n+1)}{2}$ 个条目。故其运行时间为 $O(n^{3})$
+
+### Infiniteness of CFL
+
+Infiniteness 的测试思想与正则语言相同，对于 pumping lemma 的常数 $n$ ，只需测试长度在 $[n, 2n-1]$ 的 string 是否都在 $L$ 中即可
+
+存在一个满足条件的 string 则 $L$ 为无穷
