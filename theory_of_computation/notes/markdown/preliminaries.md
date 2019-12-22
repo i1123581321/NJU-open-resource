@@ -21,7 +21,7 @@ Null set: $\varnothing$
 
 Subset: $A \subseteq B$ , 如果 $A \neq B$ 即为 proper subset，记为 $A \subset B$
 
-Disjoint Sets: $A \cup B = \varnothing$
+Disjoint Sets: $A \cap B = \varnothing$
 
 集合中元素的数量称为集合的势（Cardinality），记为 $|A|$
 

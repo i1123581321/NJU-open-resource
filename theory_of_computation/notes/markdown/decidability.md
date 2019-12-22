@@ -86,13 +86,7 @@ HALT 不是 decidable 的
 >
 > 根据反证法，$H, H^{\prime}$ 均不存在
 
-使用对角法也可以证明该结论
-
-> Proof. 假设存在 TM $H$ decides HALT，即如果 $M$ 在 $x$ 上 halt，$H$ 接受，否则 $H$ 拒绝
->
-> 所有 TM 的集合是 countable 的，则可为每个 TM 编号，这样可构造一个矩阵 $A$，其中 $a_{ij}$ 为 ACCEPT 表示 $H$ 对输入 $<M_{i}, <M_{j}>>$ 接受，则可构造一个 TM $H^{\prime}$ ，对于任意自然数 $i$ ，如果 $H$ 接受 $<M_{i}, <M_{i}>>$ ，则 $H^{\prime}$ 在 $<M_{i}, <M_{j}>>$ 上 halt ，反之则接受，而其余 $i \neq j$ 的结果与 $H$ 相同。
->
-> 对于 $H^{\prime}$ ，由于其也是 TM，则存在一个唯一对应的自然数，设为 $j$ ，则考虑 $H^{\prime}$ 以 $<M_{j}, <M_{j}>>$ 为输入，如果 $H^{\prime}$ 接受，则按照定义 $H$ 拒绝，应当 halt，反之亦然，推出矛盾
+使用对角法也可以证明该结论，思路与上文类似
 
 ### RE and co-RE
 
@@ -196,7 +190,7 @@ $$
 >
 > 则考虑 $D$ 以 $<D>$ 为输入，如果 accept，说明 $<D, <D>> \notin A_{TM}$ ，即 $<D> \notin D$ ，导出矛盾。反之亦然，故根据归谬法，不存在 $D$ 和 $H$，亦即 $A_{TM}$ 为 undecidable
 
-### $E_{TM}$ is undecidable
+### $E_{TM}$ is undecidable
 
 $E_{TM}$ 的定义为
 $$
@@ -225,7 +219,7 @@ Rice's Theorem: all *non-trivial*, *semantic properties* of programs are undecid
 
 semantic property: Rice's theorem 适用范围是关于语言的属性而非关于机器/程序的属性。e. g. 一个程序是否会在所有输入上 halt 就是一个 semantic property，而程序是否会运行超过 1000 步或 TM 是否有超过 5 个状态就不是 semantic property
 
-如果将 property 看作一个接受 TM 为输入的 language $P$，则如果 $L(M_{1}) = L(M_{2})$ ，有
+如果将 property 看作一个接受 TM 为输入的 language $P$，则如果 $L(M_{1}) = L(M_{2})$ ，有
 $$
 <M_{1}> \in P \iff <M_{2}> \in P
 $$
@@ -239,9 +233,9 @@ non-trivial: 一个 trivial 的 property 满足：或是所有语言都有该 pr
 
 要注意 Rice's Theorem 的适用范围仅限 **non-trivial semantic properties**
 
-$P$ is non-trivial $\iff$ $P$ is undecidable
+$P$ is non-trivial $\iff$ $P$ is undecidable
 
-> Proof. 将 $A_{TM}$ 归约到 $P$
+> Proof. 将 $A_{TM}$ 归约到 $P$
 >
 > 思路为如果 $P$ non-trivial 则一定存在 $<M_{L}> \in P$ ，对于 $A_{TM}$ 的实例 $<M, w>$ ，构造 TM $M^{\prime}$ ，模拟 $M$ 在 $w$ 上的运行，如果 accept，则模拟 $M_{L}$ 在输入 $x$ 上的运行，如果 accept 则 accept，这样 $<M, w> \in A_{TM} \iff L(M^{\prime}) = L(M_{L}) \iff <M^{\prime}> \in P$
 >

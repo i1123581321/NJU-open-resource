@@ -19,29 +19,19 @@ Language of an Automata: The set of strings accepted by an automata $A$ is the l
 
 ## Deterministic Finite Automata
 
-### Alphabets, string and language
+### Definition
 
-Alphabet: any finite set of symbols
+A DFA is represented formally by a 5-tuple, $(Q, \Sigma, \delta, q_{0}, F)$ ，consisting of
 
-String: a string over an alphabet $\Sigma$ is a list, each element of which is a member of $\Sigma$
-
-$\Sigma^*$ : set of all strings over alphabet $\Sigma$
-
-Language: a language is a subset of $\Sigma^*$ for some alphabet $\Sigma$
-
-### DFA
-
-> A DFA is represented formally by a 5-tuple, $(Q, \Sigma, \delta, q_{0}, F)$ ，consisting of
->
-> - a finite set of states $Q$
-> - a finite set of input symbols $\Sigma$
-> - a transition function $\delta: Q \times \Sigma \to Q$
-> - an initial state $q_0 \in Q$
-> - a set of states $F$ distinguished as final states $F \in Q$
+- a finite set of states $Q$
+- a finite set of input symbols $\Sigma$
+- a transition function $\delta: Q \times \Sigma \to Q$
+- an initial state $q_0 \in Q$
+- a set of states $F$ distinguished as final states， $F \subseteq Q$
 
 transition function takes two arguments: a state and an input symbol
 
-更为严谨的定义需要 transition function $\delta$ 为 total function，即对任意一组状态和输入，其输出都是有定义的。但一般情况下遇到输出未定义的情况，可认为 DFA 停机
+> 更为严谨的定义需要 transition function $\delta$ 为 total function，即对任意一组状态和输入，其输出都是有定义的。但一般情况下遇到输出未定义的情况，可认为 DFA 停机
 
 DFA 也可以以图的形式表示
 
@@ -74,7 +64,7 @@ Induction. $\delta(q, wa) = \delta(\delta(q, w), a)$
 $$
 L(A) = \{w:\delta(q_0, w) \in F\}
 $$
-Regular language: a language is regular if it is the language accepted by some DFA
+**Regular language**: a language is regular if it is the language accepted by some DFA
 
 > Example: A Nonregular Language
 >
@@ -102,15 +92,15 @@ Regular language: a language is regular if it is the language accepted by some D
 
 NFA 的 transition 结果可以是一个状态的集合
 
-> An NFA is represented formally by a 5-tuple, $(Q, \Sigma, \delta, q_{0}, F)$ ，consisting of
->
-> - a finite set of states $Q$
-> - a finite set of input symbols $\Sigma$
-> - a transition function $\delta: Q \times \Sigma \to P(Q)$
-> - an initial state $q_0 \in Q$
-> - a set of states $F$ distinguished as final states $F \in Q$
+An NFA is represented formally by a 5-tuple, $(Q, \Sigma, \delta, q_{0}, F)$ ，consisting of
 
-对于 NFA ，$\delta(q, a)$ 的输出是一个状态的集合。其 Extend 的递归定义
+- a finite set of states $Q$
+- a finite set of input symbols $\Sigma$
+- a transition function $\delta: Q \times \Sigma \to P(Q)$
+- an initial state $q_0 \in Q$
+- a set of states $F$ distinguished as final states $F \in Q$
+
+对于 NFA ，$\delta(q, a)$ 的输出是一个状态的集合。其 Extended 的递归定义
 
 Basis. $\delta(q, \epsilon) = \{q\}$
 
@@ -121,49 +111,17 @@ $$
 L(A) = \{w:\delta(q_0, w) \cap F \neq \varnothing \}
 $$
 
-### Equivalence of DFA, NFA
-
-#### DFA to NFA
-
-A DFA can be turned into an NFA that accepts the same language:
-
-If $\delta_{D}(q, a) = p$, let the NFA have $\delta_{N}(q, a) = \{p\}$
-
-#### NFA to DFA: subset construction
-
-从 NFA 构造 DFA 可使用 subset construction，设 NFA 有状态 $Q$， 输入字母表 $\Sigma$ ，转换函数 $\delta_{N}$ ，开始状态 $q_0$ 和接收状态集 $F$
-
-则与其等价的 DFA 有状态 $2^{Q}$ ，输入字母表 $\Sigma$ ，开始状态 $\{q_0\}$ ，以及接收状态集 $\{S : S \in 2^{Q} \text{ and } S \cap F \neq \varnothing \}$
-
-**Critical Point**: DFA 的状态为 NFA 状态的集合
-$$
-\delta_{D}(\{q_1, q_2, \dots, q_k\}, a) = \bigcup_{i=1}^{k}\delta_{N}(q_i, a)
-$$
-证明其正确性只需证明对字符串 $w$ ，有
-$$
-\delta_{N}(q_{0}, w) = \delta_{D}(\{q_{0}\}, w)
-$$
-对 $w$ 的长度归纳即可
-
-Basis. $w = \epsilon$ 
-$$
-\delta_{N}(q_{0}, \epsilon) = \delta_{D}(\{q_{0}\}, \epsilon) = \{q_{0}\}
-$$
-I. H. 对比 $w$ 短的字符串，命题成立
-
-Ind. Step. 令 $w = xa$ ，则 $\delta_{N}(q_{0}, x) = \delta_{D}(\{q_{0}\}, x) = S$
-
-令 $T = \bigcup_{p \in S}\delta_{N}(p, a)$
-
-则 $\delta_{N}(q_{0}, w) = T = \delta_{D}(S, a) = \delta_{D}(\{q_{0}\}, w)$
+即只要存在一条运行路径结束于接收状态即可认为接受该 string
 
 ### NFA with $\epsilon$-transitions
 
-允许状态间根据 $\epsilon$ 转换
+允许状态间根据 $\epsilon$ 转换的 NFA
 
 定义 Closure of states:
 
 * $CL(q)$ = set of states you can reach from state $q$ following only arcs labeled $\epsilon$
+  * Basis. $q \in CL(q)$
+  * Induction. 如果 $p \in CL(q)$ 且有一条从 $p$ 到 $r$ 的边标号为 $\epsilon$ ，则 $r \in CL(q)$
 * $CL(S) = \bigcup_{q \in S}CL(q)$
 
 在 $\epsilon$-NFA 上可定义扩展的转换函数 $\hat{\delta}(q, w)$
@@ -177,27 +135,111 @@ $$
 L(A) = \{w:\hat{\delta}(q_0, w) \cap F \neq \varnothing \}
 $$
 
-### Equivalence of NFA, $\epsilon$-NFA
+## Equivalence of DFA, NFA
 
-Obviously, every NFA is an $\epsilon$-NFA
+#### DFA to NFA
 
-可从一个 $\epsilon$-NFA 构造一个接受同样语言的 NFA: remove $\epsilon$-transitions
+A DFA can be turned into an NFA that accepts the same language:
 
-设一个 $\epsilon$-NFA 有状态 $Q$ ，输入字母表 $\Sigma$ ，开始状态 $q_{0}$ ，接收状态集 $F$ ，转换函数 $\delta_{E}$
+If $\delta_{D}(q, a) = p$, let the NFA have $\delta_{N}(q, a) = \{p\}$
 
-构造一个 NFA 有状态 $Q$ ，输入字母表 $\Sigma$ ，开始状态 $q_{0}$ ，接收状态集 $F'$ ，转换函数 $\delta_{N}$
-$$
-\delta_{N}(q, a) = \bigcup_{p \in CL(q)} \delta_{E}(p, a)
-$$
-即从状态 $q$ 开始，做一次 CL，做一次 $a$ 的转换
+#### NFA to DFA: subset construction
 
-同理
+从 NFA 构造 DFA 可使用 subset construction
+
+对于 NFA $N = (Q_{N}, \Sigma, \delta_{N}, q_{0}, F_{N})$ ，目标是构造一个 DFA $D = (Q_{D}, \Sigma, \delta_{D}, \{q_{0}\}, F_{D})$ 满足 $L(D) = L(N)$
+
+> Proof.
+>
+> $D$ 的开始状态为一个集合，其中唯一的元素是 $N$ 的开始状态，且由于两者接受相同的语言，故 $D$ 与 $N$ 的 alphabet 相同，其余部分的构造如下
+>
+> * $Q_{D}$ 是 $Q_{N}$ 的 power set，如果 $|Q_{N}| = n$ 那么 $|Q_{D}| = 2^{n}$ ，但实践中一般很多状态都是不可达的，可达状态的数量大约和 $n$ 在同一数量级
+>
+> * $F_{D}$ 是满足 $S \subseteq Q_{N} \and S \cap F_{N} \neq \varnothing$ 的 $S$ 的集合
+>
+> * $\delta_{D}$ 的定义如下，对于任意 $S \subseteq Q_{N}, a \in \Sigma$ 
+>   $$
+>   \delta_{D}(S, a) = \bigcup_{p \in S}\delta_{N}(p, a)
+>   $$
+
+**Critical Point**: DFA 的状态为 NFA 状态的**集合**
+
+证明其正确性只需证明对字符串 $w$ ，有
 $$
-F' = \{q : CL(q) \cap F \neq \varnothing\}
+\delta_{N}(q_{0}, w) = \delta_{D}(\{q_{0}\}, w)
 $$
-证明其正确性只需证明
+> 对 $w$ 的长度归纳即可
+>
+> Basis. $w = \epsilon$ 
+> $$
+> \delta_{N}(q_{0}, \epsilon) = \delta_{D}(\{q_{0}\}, \epsilon) = \{q_{0}\}
+> $$
+> Induction. 令 $w = xa$ ，根据 I. H. 有
+> $$
+> \delta_{N}(q_{0}, x) = \delta_{D}(\{q_{0}\}, x) = S
+> $$
+> 令 $T = \bigcup_{p \in S}\delta_{N}(p, a)$
+>
+> 根据 NFA transition function 的定义，有
+> $$
+> \delta_{N}(q_{0}, w) = \delta_{N}(q_{0}, xa) = \bigcup_{p \in \delta_{N}(q_{0}, x)}\delta_{N}(p, a) = T
+> $$
+> 而根据上述证明的构造有
+> $$
+> \delta_{D}(S, a) = \bigcup_{p \in S} \delta_{N}(p, a) = T
+> $$
+> 同样的，根据 DFA transition function 的定义，有
+> $$
+> \delta_{D}(\{q_{0} \}, w) = \delta_{D}(\{q_{0}\}, xa) = \delta_{D}(\delta_{D}(\{q_{0}\}, x), a) = \delta_{D}(S, a) = T
+> $$
+> 则 $\delta_{N}(q_{0}, w) = T  = \delta_{D}(\{q_{0}\}, w)$
+>
+> 故
+> $$
+> \begin{align}
+> w \in L(N) &\iff \delta_{N}(q_{0}, w) \cap F_{N} \neq \varnothing\\
+> &\iff \delta_{D}(\{q_{0}\}, w) \cap F_{N} \neq \varnothing\\
+> &\iff \delta_{D}(\{q_{0}\}, w) \in F_{D}\\
+> &\iff w \in L(D)
+> \end{align}
+> $$
+> 得证 $L(N) = L(D)$
+
+由上述双向的等价可得
+
+$L$ 被一个 DFA 接受 $\iff$ $L$ 被一个 NFA 接受
+
+## Equivalence of DFA, $\epsilon$-NFA
+
+### DFA to $\epsilon$-NFA
+
+Obviously, every DFA is an $\epsilon$-NFA
+
+### $\epsilon$-NFA to DFA
+
+可从一个 $\epsilon$-NFA 构造一个接受同样语言的 DFA: remove $\epsilon$-transitions
+
+对于一个 $\epsilon$-NFA $E = (Q_{E}, \Sigma,\delta_{E}, q_{0}, F_{E})$ ，目标是构造一个 DFA $D = (Q_{D}, \Sigma,\delta_{D}, q_{D}, F_{D}, )$ 使得 $L(E) = L(D)$
+
+> Proof.
+>
+> $D$ 与 $E$ 接受相同语言，有相同的 alphabet，其余部分的构造为
+>
+> * $Q_{D}$ 是 $Q_{E}$ 的 power set，且任意 $S \in Q_{D}$ 满足 $S = CL(S)$ ，换言之，$S$ 是一个 $\epsilon$-closed set
+>
+> * $q_{D} = CL(q_{0})$
+>
+> * $F_{D}$ 是满足 $S \in Q_{D} \and S \cap F_{E} \neq \varnothing$ 的 $S$ 的集合
+>
+> * $\delta_{D}(S, a)$ 的定义为，对于任意 $a \in \Sigma, S \in Q_{D}$
+>   $$
+>   T = \bigcup_{p \in S} \delta_{E}(p, a)\\
+>   \delta_{D}(S, a) = CL(T)
+>   $$
+
+证明其正确性只需证明对任意字符串 $w$ 满足
 $$
-CL(\delta_{N}(q_{0}, w)) = \hat{\delta}_{E}(q_{0}, w)
+\delta_{E}(q_{0}, w) = \delta_{D}(q_{D}, w)
 $$
 根据 $w$ 的长度归纳证明即可
 

@@ -26,7 +26,7 @@ where
 
 其输出为有序对 $(p, \gamma)$ 的集合，其中 $p$ 是一个新状态，而 $\gamma$ 是一个 stack symbol 的 string，用于**取代** $X$ ，当 $\gamma = \epsilon$ ，表示弹出 $X$ ，而当 $\gamma = X$ 则不变，若 $\gamma = Y Z$ ，则将 $X$ 替换为 $Z$，再将 $Y$ 压入。
 
-> 需注意 $\delta$ 的输出是一个集合，即 PDA 可以从中选出一个对，但是不能迁移到某个对的状态但是将栈中内容替换为另一个对的内容
+> 需注意 $\delta$ 的输出是一个集合，即 PDA 可以从中选出一个对
 
 PDA 也可以像 FA 一样使用图表示，其中
 
@@ -387,13 +387,13 @@ DPDA 接受的语言集合在正则语言和 CFL 之间，首先可以证明所�
 > $$
 > 对于所有满足 $\delta(q, a) = p$ 的 $p, q \in Q$ ，令 $\delta_{P}(q, a, Z_{0}) = \{(p, Z_{0})\}$ 即可
 >
-> 显然 $(q_{0}, w, Z_{0}) \vdash^{*} (p, \epsilon, Z_{0}) \iff \delta_{A}(q_{0}, w) = p$ ，证明基于 $w$ 的长度归纳即可
+> 显然 $(q_{0}, w, Z_{0}) \vdash^{*} (p, \epsilon, Z_{0}) \iff \delta_{A}(q_{0}, w) = p$ ，证明基于 $w$ 的长度归纳即可
 
-Prefix Property: 没有两个不同的字符串满足其中一个是另一个的前缀
+Prefix Property: 在一个 language 中，没有两个不同的字符串满足其中一个是另一个的前缀
 
 则有定理：对某个 DPDA $P$ 来说如果语言 $L = N(P)$ 当且仅当 $L$ 有 prefix property 并且存在 DPDA $P^{\prime}$ 满足 $L = L(P^{\prime})$
 
-故可以看出正则语言可以由 acceptance by final state 的 DPDA 描述，但不一定能由 acceptance by empty stack 的 DPDA 描述，即对于 DPDA 来说 $L(P)$ 的描述能力是强于 $N(P)$ 的，两者并不等价
+故可以看出正则语言可以由 acceptance by final state 的 DPDA 描述，但不一定能由 acceptance by empty stack 的 DPDA 描述，即对于 DPDA 来说 $L(P)$ 的描述能力是强于 $N(P)$ 的，两者并不等价，事实上，$N(P)$ 的描述能力甚至弱于正则，如 $L = \{0\}^{*}$
 
 ### DPDA and Context-Free Language
 
