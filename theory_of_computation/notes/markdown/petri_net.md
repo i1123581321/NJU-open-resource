@@ -30,7 +30,7 @@ PN 是一个 4-tuple $C = (P, T, I, O)$ 其中
 * $P$ 是 places 的集合
 * $T$ 是 transitions 的集合
 * $I:T \to 2^{P}$ 是 transition 的输入，记为 $\cdot t$
-* $O: T \to 2^{P}$ 是 transition 的输出，记为 $t\cdot$
+* $O: T \to 2^{P}$ 是 transition 的输出，记为 $t\cdot$
 
 由于 token 的存在，故可以定义 marking $\mu = (\mu_{1}, \mu_{2}, \dots ,\mu_{n})$ 为各个 place 中 token 的数量
 
@@ -38,9 +38,9 @@ PN 是一个 4-tuple $C = (P, T, I, O)$ 其中
 
 ### Fire
 
-对于一个 transition $t$ ，$t$ 在当前 marking 为 **enabled** $\iff$ 对于 $t$ 的所有 input，其中都存在一个 token
+对于一个 transition $t$ ，$t$ 在当前 marking 为 **enabled** $\iff$ 对于 $t$ 的所有 input，其中都存在一个 token
 
-一个 enabled transition 即可 **fire** ，即从其所有 input 中减去一个 token，再在其所有 output 中增加一个 token
+一个 enabled transition 即可 **fire** ，即从其所有 input 中减去一个 token，再在其所有 output 中增加一个 token
 
 Fire 是一个原子操作
 
@@ -64,7 +64,11 @@ $$
 $$
 \mu_{i} = (\mu_{i-1} - \cdot t_{i-1}) + t_{i-1}\cdot, \forall i \geqslant 1
 $$
-上式的含义是从当前 marking 减去所有 $t$ 的 input 再加上所有 $t$ 的 output 即是 fire 之后的 marking
+上式的含义是从当前 marking 减去所有 $t$ 的 input 再加上所有 $t$ 的 output 即是 fire 之后的 marking
+
+### Semantic
+
+PN 的语义同样是基于 TS，其中状态为 marking，而 transition 即为 fire
 
 ### Other definitions
 
@@ -133,7 +137,7 @@ Behavioral peoperty 是取决于初始 marking 的属性
 
 ## PN with time
 
-Time PN 是在经典 PN 的基础上，为每个 transition $t$ 分配一个时间区间 $[a;b]$ ，其值与 $t$ 最近一次 enabled 有关
+Time PN 是在经典 PN 的基础上，为每个 transition $t$ 分配一个时间区间 $[a;b]$ ，其值与 $t$ 最近一次 enabled 有关
 
 如果 $t$ 是在时间 $c$ enabled 的，则其能 fire 的时间一定位于 $[c + a; c + b]$ ，且 $t$ 或是在 $c + b$ 之前完成 fire 或是在 fire 之前因为另一个 transition 的 fire 而不再 enabled
 
@@ -149,7 +153,7 @@ time PN 是一个 6-tuple $N = (P, T, F, Eft, Lft, \mu_{0})$ ，其中
 * $T$ 是有限的 transition 集合
 * $F \subset (P \times T) \cup (T \times P)$ 是 flow relation
 * $Eft, Lft: T \to \N$ 是 earliest fire time 和 latest fire time，满足 $\forall t \in T, Eft(t) \leqslant Lft(t) \leqslant \infin$
-* $\mu_{0}$ 是初始 marking
+* $\mu_{0}$ 是初始 marking
 
 令 $T$ 为非负实数（代表时间），则 $N$ 中的状态是一个 pair $(\mu, c)$ ，其中 $\mu$ 是 marking，且 $c:enabled(\mu) \to T$ 被称为 clock function
 
@@ -164,10 +168,15 @@ $$
 * $Eft(t) \leqslant c(t) + \delta$
 * $\forall t^{\prime} \in enabled(\mu), c(t^{\prime}) + \delta \leqslant Lft(t^{\prime})$
 
+在从 $s$ 以延迟 $\delta$ fire $t$ 之后，新的状态 $s^{\prime} =(\mu^{\prime}, c^{\prime})$ 为
+
+* $\mu^{\prime} = (\mu - \cdot t) \cup t \cdot$
+* 对于任意 $t^{\prime} \in enabled(\mu^{\prime})$ ，如果 $t^{\prime} \neq t \and t^{\prime} \in enabled(\mu)$ 则 $c^{\prime}(t^{\prime}) = c(t^{\prime}) + \delta$ ，否则 $c^{\prime}(t^{\prime}) = 0$
+
 则 time PN 的 run 是一个 state，transition，delay 的序列
 $$
 \rho = s_{0} \overset{(t_{0}, \delta_{0})}{\to} s_{1} \overset{(t_{1}, \delta_{1})}{\to} \dots \overset{(t_{n-1}, \delta_{n-1})}{\to} s_{n} \overset{(t_{n}, \delta_{n})}{\to} \dots
 $$
-满足 $s_{0}$ 是初始状态，且对任意 $s_{i}$ ，通过 transition $t_{i-1}$ 在 delay $\delta_{i-1}$ 后 fire 得到
+满足 $s_{0}$ 是初始状态，且对任意 $s_{i}$ ，通过 transition $t_{i-1}$ 在 delay $\delta_{i-1}$ 后 fire 得到
 
-time PN 可以为同步的 fire 添加逻辑上的先后关系
+time PN 可以为同步的 fire 添加时间上的先后关系

@@ -13,7 +13,7 @@ Discrete Time Domain
 
 选定一个基本的时间段 $\varepsilon$ ，则任何事件发生的时间点只能是 $\varepsilon$ 的整数倍
 
-挑战在于 $\varepsilon$ 的选取，常常用于建模同步系统，如硬件电路的建模
+挑战在于 $\varepsilon$ 的选取，常常用于建模同步系统，如硬件电路的建模
 
 Continuous Time Domain
 
@@ -49,7 +49,7 @@ $$
 * $L$ 是有限的 location 集合
 * $X$ 是有限的 clock 集合
 * $I_{0} \in L$ 是初始的 location
-* $E \subseteq L \times C(X) \times 2^{X} \times L$ 是边的集合，即边为一个 4-tuple (source location, clock constraints, set of clocks to be reset, target location)
+* $E \subseteq L \times C(X) \times 2^{X} \times L$ 是边的集合，即边为一个 4-tuple (source location, clock constraints, set of clocks to be reset, target location)
 
 ### Semantics
 
@@ -72,7 +72,7 @@ clock valuation 是一个函数 $v:X \to \R^{+}$，代表当前的 clock 的值
 
 * $v+d$ 代表 flow of time，即 $(v+d)(x) = v(x) + d$
 
-* $v \vDash c$ 代表 $v$ 满足 constraint $c$
+* $v \vDash c$ 代表 $v$ 满足 constraint $c$
 
 则可以给出 TA 语义的定义，TA 的语义是一个 TS $S_{A} = (S, s_{0}, \to)$
 
@@ -80,9 +80,11 @@ clock valuation 是一个函数 $v:X \to \R^{+}$，代表当前的 clock 的值
 * $s_{0} = (I_{0}, v_{0}),\forall x \in X, v_{0}(x) = 0$ 是初始状态
 * $\to : S \times S$ 是迁移
   * delay action: $(I, v) \overset{\delta}{\to} (I,v + \delta)$
-  * discrete action: $(I, v) \to (I^{\prime}, v^{\prime}) \iff \exist (I, c, Y, I^{\prime}) \in E$ s. t. $v \vDash c, v^{\prime} = v[Y:=0]$
+  * discrete action: $(I, v) \to (I^{\prime}, v^{\prime}) \iff \exist (I, c, Y, I^{\prime}) \in E$ s. t. $v \vDash c, v^{\prime} = v[Y:=0]$
 
 上述定义未涵盖 invariants 的部分
+
+> invariants 可以看作一个从 location 到 constraint 的函数
 
 ## Reachability Problem
 

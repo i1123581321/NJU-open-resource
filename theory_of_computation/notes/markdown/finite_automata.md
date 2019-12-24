@@ -223,9 +223,9 @@ Obviously, every DFA is an $\epsilon$-NFA
 
 > Proof.
 >
-> $D$ 与 $E$ 接受相同语言，有相同的 alphabet，其余部分的构造为
+> $D$ 与 $E$ 接受相同语言，有相同的 alphabet，其余部分的构造为
 >
-> * $Q_{D}$ 是 $Q_{E}$ 的 power set，且任意 $S \in Q_{D}$ 满足 $S = CL(S)$ ，换言之，$S$ 是一个 $\epsilon$-closed set
+> * $Q_{D}$ 是 $Q_{E}$ 的 power set，且任意 $S \in Q_{D}$ 满足 $S = CL(S)$ ，换言之，$S$ 是一个 $\epsilon$-closed set
 >
 > * $q_{D} = CL(q_{0})$
 >

@@ -118,7 +118,7 @@ $$
 
 显然如果 $h$ 是 isomorphism 则 $h$ 的逆也是一个 isomorphism
 
-对于两个 strong isomorphism 的 TS，它们唯一的区别就是命名方式
+对于两个 strong isomorphic 的 TS，它们唯一的区别就是命名方式
 
 ### TS weak isomorphism
 

@@ -47,7 +47,7 @@ Induction.
 * $(L^{*})^{*} = L^{*}$
 * $\varnothing^{*} = \{\epsilon\}$
 * $\{\epsilon\}^{*} = \{\epsilon\}$
-* $(L + M)^{*} = (L^{*}M^{*})^{*}$
+* $(L + M)^{*} = (L^{*}M^{*})^{*}$
 
 如何判断一个 RE 的代数定律是否为真：代入一个具体的 RE （见书 3.4.7 节）
 
@@ -97,22 +97,23 @@ $k$-path 的 endpoint 没有限制，$n$-path 可以是任意路径
 
 则该 DFA 对应的 RE 是所有从开始状态到接受状态的 $n$-path 的 RE 的集合
 
-其正确性的证明基于对 $k$ 的归纳，令 $R_{ij}^{k}$ 为从状态 $i$ 到状态 $j$ 的 $k$-path 上的 label 表示的 RE
+> 其正确性的证明基于对 $k$ 的归纳，令 $R_{ij}^{k}$ 为从状态 $i$ 到状态 $j$ 的 $k$-path 上的 label 表示的 RE
+>
+> Basis. $k = 0$ ，此时 $R_{ij}^{0}$ 是从 $i$ 到 $j$ 所有边上的标号的和
+>
+> * 若没有边，则为 $\varnothing$
+> * 若 $i = j$ ，则需要加上 $\epsilon$
+>
+> Induction. 从 $i$ 到 $j$ 的 $k$-path，或者经过状态 $k$ （一次或多次），或者不经过状态 $k$
+>
+> * 经过状态 $k$ ：$R_{ik}^{k-1}(R_{kk}^{k-1})^{*}R_{kj}^{k-1}$
+> * 不经过状态 $k$ ：$R_{ij}^{k-1}$
+>
+> 故
+> $$
+> R_{ij}^{k} = R_{ij}^{k-1} + R_{ik}^{k-1}(R_{kk}^{k-1})^{*}R_{kj}^{k-1}
+> $$
 
-Basis. $k = 0$ ，此时 $R_{ij}^{0}$ 是从 $i$ 到 $j$ 所有边上的标号的和
-
-* 若没有边，则为 $\varnothing$
-* 若 $i = j$ ，则需要加上 $\epsilon$
-
-Induction. 从 $i$ 到 $j$ 的 $k$-path，或者经过状态 $k$ （一次或多次），或者不经过状态 $k$
-
-* 经过状态 $k$ ：$R_{ik}^{k-1}(R_{kk}^{k-1})^{*}R_{kj}^{k-1}$
-* 不经过状态 $k$ ：$R_{ij}^{k-1}$
-
-故
-$$
-R_{ij}^{k} = R_{ij}^{k-1} + R_{ik}^{k-1}(R_{kk}^{k-1})^{*}R_{kj}^{k-1}
-$$
 The RE with the same language as the DFA is the union of $R_{ij}^{n}$ where
 
 * $n$ is the number of states

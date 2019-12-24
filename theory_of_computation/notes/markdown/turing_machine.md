@@ -364,4 +364,4 @@ complement 是全集的 difference
 
 ### Homomorphism
 
-对于 homomorphism $h$ ，构造一个 NTM 猜测一个 $x$ 使得 $h(x) = w$ ，若 $x$ 能被原 TM 接受，则 $w$ 被 NTM 接受，显然这个构造对 RE 是适用的而对 recursive 不适用
+对于 homomorphism $h$ ，构造一个 NTM 猜测一个 $x$ 使得 $h(x) = w$ ，若 $x$ 能被原 TM 接受，则 $w$ 被 NTM 接受，显然这个构造对 RE 是适用的而对 recursive 不适用，因为若是 $w \in h(L)$ 则总能找到符合的 $x$ ，但是 $x$ 的选择可以是 infinite 的，在没有符合要求的 $x$ 时 TM 或许不会 halt
