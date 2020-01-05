@@ -6,7 +6,7 @@
 
 依概率收敛：设 $X_{1}, X_{2} \dots , X_{n} , \dots$ 为一系列随机变量，若存在常数 $\alpha$ 使得对任意 $\varepsilon > 0$ 有
 $$
-\lim_{n \to \infin} P(|X_{n} - X| \geqslant \varepsilon ) = 0
+\lim_{n \to \infin} P(|X_{n} - \alpha| \geqslant \varepsilon ) = 0
 $$
 则称随机变量序列 $\{X_{n}\}$ 依概率收敛到 $\alpha$ ，记为 $X_{n} \overset{P}{\to} \alpha$
 
