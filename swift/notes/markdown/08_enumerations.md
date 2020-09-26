@@ -139,6 +139,6 @@ enum ArithmeticExpression {
 }
 ```
 
-或者在 `enum` 前加上 `indirect` 也可以
+或者在 `enum` 前加上 `indirect` 也可以
 
 递归枚举适合定义天生递归的数据结构

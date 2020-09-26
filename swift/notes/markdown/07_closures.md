@@ -122,7 +122,7 @@ func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
 }
 ```
 
-这种情况下不加上 `@escaping` 会触发一个编译时错误
+这种情况下不加上 `@escaping` 会触发一个编译时错误
 
 ## Autoclosures
 
@@ -162,10 +162,3 @@ func serve(customer customerProvider: @autoclosure () -> String) {
 serve(customer: customersInLine.remove(at: 0))
 // Prints "Now serving Ewa!"
 ```
-
-
-
-
-
-
-
